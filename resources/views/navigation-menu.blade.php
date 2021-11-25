@@ -17,7 +17,7 @@
                     </x-jet-nav-link>
 
                     <x-jet-nav-link href="{{}}">
-                        {{ __('Student') }}
+                        {{ __('Students') }}
                     </x-jet-nav-link>
                 </div>
             </div>
