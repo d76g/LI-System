@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use app\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +20,6 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/students-state', function () {
-    return view('students-state');
-})->name('studentsState');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = DB::table('students')->skip(1)->take(PHP_INT_MAX)->get();

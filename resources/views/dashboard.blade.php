@@ -7,7 +7,6 @@
             </b>
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="container">
             <div class="row">
@@ -20,7 +19,7 @@
                         <th scope="col">Nama</th>
                       </tr>
                     </thead>
-                    @php($i = 1);
+                    @php($i = 1)
                     @foreach ( $users as $user )
                     <tbody>
                         <tr>
@@ -70,7 +69,7 @@
                     <tbody>
                         <tr>
                           <th scope="row">{{$states->Negeri}}</th>
-                          <td>{{$states->NumberOfStudents}}</td>
+                          <td><a style="text-decoration: none" href="#">{{$states->NumberOfStudents}}</a></td>
                     @endforeach
                   </table>
             </div>
