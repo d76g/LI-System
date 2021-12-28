@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\Route;
 use app\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+// | Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = DB::table('students')->skip(1)->take(PHP_INT_MAX)->get();
@@ -30,5 +32,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         ->groupBy('Negeri')
         ->orderByDesc('NumberOfStudents')
         ->get();
+
+    Route::get('/dashboard', [ExcelController::class, 'index']);
+    Route::post('/dashboard',  [ExcelController::class, 'importData']);
+    Route::get('/dashboard', [ExcelController::class, 'exportData']);
     return view('dashboard', compact('users'), compact('location', 'state'));
 })->name('dashboard');
