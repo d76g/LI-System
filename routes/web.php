@@ -41,16 +41,16 @@ Route::post('student/import',  [ExcelController::class, 'importData'])->name('up
 Route::get('dashboard',  [ExcelController::class, 'exportData'])->name('exportData');
 
 Route::get('/Document', [DocumentController::class, 'viewDoc'])->name('docPage');
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();
-    $location = DB::table('location')->skip(1)->take(PHP_INT_MAX)->get();
-    $state = DB::table('location')
-        ->select(DB::raw('count(Negeri) as NumberOfStudents, Negeri'))
-        // ->where('Negeri', '<>', 1)
-        ->groupBy('Negeri')
-        ->orderByDesc('NumberOfStudents')
-        ->get();
+// |Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();
+//     $location = DB::table('location')->skip(1)->take(PHP_INT_MAX)->get();
+//     $state = DB::table('location')
+//         ->select(DB::raw('count(Negeri) as NumberOfStudents, Negeri'))
+//         // ->where('Negeri', '<>', 1)
+//         ->groupBy('Negeri')
+//         ->orderByDesc('NumberOfStudents')
+//         ->get();
 
 
-    return view('dashboard', compact('students'), compact('location', 'state'));
-})->name('dashboard');
+//     return view('dashboard', compact('students'), compact('location', 'state'));
+// })->name('dashboard');
