@@ -127,9 +127,9 @@
 
                           <tbody>
 
-                          @if(!empty($students) && $students->count())
+                          @if(!empty($data) && $data->count())
 
-                              @foreach($students as $row)
+                              @foreach($data as $row)
                                   <tr>
                                       <td>{{ $row->Bil }}</td>
                                       <td>{{ $row->No_Matrik }}</td>
@@ -161,7 +161,7 @@
 
           </div>
           {{-- Location Table --}}
-          <div class="card"  style="margin-top:2rem">
+          {{-- <div class="card"  style="margin-top:2rem">
 
             <div class="card-header bgsize-primary-4 white card-header">
               <h4 class="card-title" style="padding-top: 10px">Location List Table</h4>
@@ -236,7 +236,7 @@
                       </tbody>
                   </table>
               </div>
-          </div>
+          </div> --}}
 
       </div>
     </div>
