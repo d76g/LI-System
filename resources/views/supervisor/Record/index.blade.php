@@ -76,11 +76,11 @@
                     </thead>
                     <tbody>
                         @php
-                            $x= 0;
+                            $x= 1;
                         @endphp
                         @foreach($svData as $row)
                         <tr>
-                            <td>{{ $row->id }}</td>
+                            <td>{{$x++}}</td>
                             <td>{{ $row->name }}</td>
                             <td>{{ $row->staff_id }}</td>
                             <td>{{ $row->email }}</td>

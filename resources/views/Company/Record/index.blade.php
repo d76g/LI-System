@@ -97,9 +97,10 @@
                       </tr>
                     </thead>
                     <tbody>
+                        @php ($i = 1)
                         @foreach($company as $row)
                         <tr>
-                            <td>{{ $row->id }}</td>
+                            <td>{{$i++}}</td>
                             <td>{{ $row->name }}</td>
                             <td>{{ $row->eco_sector }}</td>
                             <td>{{ $row->sector }}</td>
