@@ -202,7 +202,7 @@
 
         </div>
          {{-- Student Location --}}
-         <div class="card"  style="margin-top:2rem">
+         {{-- <div class="card"  style="margin-top:2rem">
 
           <div class="card-header bgsize-primary-4 white card-header">
             <h4 class="card-title" style="padding-top: 10px">Student Internship Location</h4>
