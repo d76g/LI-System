@@ -101,7 +101,7 @@ class ExcelController extends Controller
 
                 $data[] = [
 
-                    'Bil' => $sheet->getCell('A' . $row)->getValue(),
+                    'id' => $sheet->getCell('A' . $row)->getValue(),
 
                     'No_Matrik' => $sheet->getCell('B' . $row)->getValue(),
 
@@ -200,13 +200,13 @@ class ExcelController extends Controller
 
 
 
-        $data_array[] = array("Bil", "No_Matrik", "No_KP", "Nama");
+        $data_array[] = array("id", "No_Matrik", "No_KP", "Nama");
 
         foreach ($data as $data_item) {
 
             $data_array[] = array(
 
-                'Bil' => $data_item->Bil,
+                'id' => $data_item->id,
 
                 'No_Matrik' => $data_item->No_Matrik,
 

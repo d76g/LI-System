@@ -127,11 +127,11 @@
 
                           <tbody>
 
-                          @if(!empty($data) && $data->count())
+                          @if(!empty($students) && $students->count())
 
-                              @foreach($data as $row)
+                              @foreach($students as $row)
                                   <tr>
-                                      <td>{{ $row->Bil }}</td>
+                                      <td>{{ $row->id }}</td>
                                       <td>{{ $row->No_Matrik }}</td>
                                       <td>{{ $row->No_KP }}</td>
                                       <td>{{ $row->Nama }}</td>
