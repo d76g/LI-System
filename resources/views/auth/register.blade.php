@@ -1,14 +1,18 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <div>
+                <img class="scale-50" src="{{URL('/logo/FSKTM LOGO.png')}}" alt="FSKTM LOGO">
+            </div>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
+            <div>
+                <h1 class="text-xl flex justify-center p-5">Register to LI FSKTM</h1>
+            </div>
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />

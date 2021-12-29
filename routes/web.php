@@ -3,6 +3,7 @@
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 use app\Models\User;
 use Faker\Guesser\Name;
@@ -28,6 +29,12 @@ Route::get('/', function () {
 Route::get('/supervisor/record', [SupervisorController::class, 'viewData'])->name('svData');
 // ADD Supervisor Data
 Route::post('/supervisor/addRecord', [SupervisorController::class, 'addData'])->name('addSvData');
+
+//Company Data
+Route::get('/company/record', [CompanyController::class, 'viewData'])->name('CompanyData');
+
+//Add Company
+Route::post('/company/addRecord', [CompanyController::class, 'addCompany'])->name('addCompanyData');
 
 Route::get('/dashboard', [ExcelController::class, 'index']);
 Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');
