@@ -8,6 +8,6 @@ class DocumentController extends Controller
 {
     public function viewdoc()
     {
-        return view('documents.document');
+        return view('Documents.document');
     }
 }
