@@ -5,6 +5,7 @@
 
 namespace App\Http\Controllers;
 
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -221,8 +222,14 @@ class ExcelController extends Controller
         $this->ExportExcel($data_array);
     }
 
-    public function destroy($users = null)
+    public function deleteRecord(Request $request)
     {
-        # code...
+        $delete = DB::table('students')->delete();
+
+        if ($delete = true) {
+            return Redirect()->back()->with('success', 'Record deleted Successfully');
+        } else {
+            return Redirect()->back()->with('fail', 'Record was not deleted Successfully');
+        }
     }
 }

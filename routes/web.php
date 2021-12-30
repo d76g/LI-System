@@ -30,6 +30,7 @@ Route::get('/supervisor/record', [SupervisorController::class, 'viewData'])->nam
 // ADD Supervisor Data
 Route::post('/supervisor/addRecord', [SupervisorController::class, 'addData'])->name('addSvData');
 
+
 //Company Data
 Route::get('/company/record', [CompanyController::class, 'viewData'])->name('CompanyData');
 //Add Company
@@ -38,7 +39,9 @@ Route::post('/company/addrecord', [CompanyController::class, 'addCompany'])->nam
 Route::get('dashboard', [ExcelController::class, 'index']);
 Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');
 Route::get('dashboard',  [ExcelController::class, 'exportData'])->name('exportData');
+Route::get('student/delete',  [ExcelController::class, 'deleteRecord'])->name('deleteData');
 
+//Document Page
 Route::get('/document', [DocumentController::class, 'viewdoc'])->name('docPage');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

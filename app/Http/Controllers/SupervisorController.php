@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Supervisor;
+use Illuminate\Support\Facades\DB;
 use finfo;
 use Illuminate\Support\Facades\Redirect;
 
