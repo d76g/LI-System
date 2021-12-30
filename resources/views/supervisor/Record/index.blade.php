@@ -35,8 +35,8 @@
                     </div>
                     <div class="col-4">
                         <label for="inputAddress" class="form-label">Staff ID</label>
-                        <input name="Staff_id" type="text" class="form-control" id="svid" placeholder="Staff ID">
-                        @error('Staff_id')
+                        <input name="staff_id" type="text" class="form-control" id="svid" placeholder="Staff ID">
+                        @error('staff_id')
                             <span class="text-light">{{'*'.$message}}</span>
                         @enderror
                     </div>

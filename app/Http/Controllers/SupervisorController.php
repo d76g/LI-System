@@ -20,12 +20,12 @@ class SupervisorController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:supervisors|max:255',
-            'Staff_id' => 'required|unique:supervisors|max:12',
+            'staff_id' => 'required|unique:supervisors|max:12',
             'Email' => 'required',
         ]);
 
         Supervisor::insert([
-            'staff_id' => $request->Staff_id,
+            'staff_id' => $request->staff_id,
             'name' => $request->name,
             'office_phone_number' => $request->phone,
             'email' => $request->Email,

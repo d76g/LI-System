@@ -13,7 +13,7 @@ class CompanyController extends Controller
     public function viewData()
     {
         $company = company::all();
-        return view('company.Record.index', compact('company'));
+        return view('company.record.index', compact('company'));
     }
 
     public function addCompany(Request $request)
