@@ -32,15 +32,14 @@ Route::post('/supervisor/addRecord', [SupervisorController::class, 'addData'])->
 
 //Company Data
 Route::get('/company/record', [CompanyController::class, 'viewData'])->name('CompanyData');
-
 //Add Company
 Route::post('/company/addrecord', [CompanyController::class, 'addCompany'])->name('addCompanyData');
 
-Route::get('/dashboard', [ExcelController::class, 'index']);
+Route::get('dashboard', [ExcelController::class, 'index']);
 Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');
 Route::get('dashboard',  [ExcelController::class, 'exportData'])->name('exportData');
 
-Route::get('/document', [DocumentController::class, 'viewDoc'])->name('docPage');
+Route::get('/document', [DocumentController::class, 'viewdoc'])->name('docPage');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();

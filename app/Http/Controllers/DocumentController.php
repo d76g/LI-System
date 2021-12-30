@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function viewDoc()
+    public function viewdoc()
     {
         return view('documents.document');
     }
