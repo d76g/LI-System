@@ -42,14 +42,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
-                  @else
+                  {{-- @else
                     <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:" aria-label="Close"><use xlink:href="#check-circle-fill"/></svg>
                         <div>
                         <strong id="sessionSuccess">{{session('fail')}}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    </div>
+                    </div> --}}
                 @endif
 
                   <form action="{{route("uploadData")}}" method="POST" enctype="multipart/form-data">
@@ -240,7 +240,7 @@
 
       </div>
     </div>
-       <script>
+       {{-- <script>
            function delConfi() {
                 let message = "Are sure you want to delete?";
                 if (confirm(message) == false) {
@@ -250,6 +250,6 @@
                     document.getElementById("sessionSuccess").innerHTML = message;
                 }
             }
-       </script>
+       </script> --}}
     </div>
 </x-app-layout>

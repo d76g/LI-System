@@ -88,7 +88,7 @@
                             <td>
                                 <button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
                                     Edit</button>
-                                <a href="{{route("deleteSvData")}}"><button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></a>
+                                <a href="#"><button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></a>
                             </td>
                         </tr>
                         @endforeach
