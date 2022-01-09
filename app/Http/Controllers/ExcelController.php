@@ -86,7 +86,7 @@ class ExcelController extends Controller
 
             $row_range    = range(2, $row_limit);
 
-            $column_range = range('D', $column_limit);
+            $column_range = range('G', $column_limit);
 
             $startcount = 2;
 
@@ -109,6 +109,12 @@ class ExcelController extends Controller
                     'No_KP' => $sheet->getCell('C' . $row)->getValue(),
 
                     'Nama' => $sheet->getCell('D' . $row)->getValue(),
+
+                    'Poskod' => $sheet->getCell('E' . $row)->getValue(),
+
+                    'Bandar' => $sheet->getCell('F' . $row)->getValue(),
+
+                    'Negeri' => $sheet->getCell('G' . $row)->getValue(),
 
 
                 ];
@@ -201,7 +207,7 @@ class ExcelController extends Controller
 
 
 
-        $data_array[] = array("id", "No_Matrik", "No_KP", "Nama");
+        $data_array[] = array("id", "No_Matrik", "No_KP", "Nama", "Poskod", "Bandar", "Negeri");
 
         foreach ($data as $data_item) {
 
@@ -215,6 +221,11 @@ class ExcelController extends Controller
 
                 'Nama' => $data_item->Nama,
 
+                'Poskod' => $data_item->Poskod,
+
+                'Bandar' => $data_item->Bandar,
+
+                'Negeri' => $data_item->Negeri,
 
             );
         }

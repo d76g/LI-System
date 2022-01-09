@@ -4,6 +4,7 @@ use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\SupervisorsController;
 use Illuminate\Support\Facades\Route;
 use app\Models\User;
 use Faker\Guesser\Name;
@@ -25,10 +26,14 @@ use League\CommonMark\Node\Block\Document;
 Route::get('/', function () {
     return view('welcome');
 });
-// Supervisor Data
-Route::get('/supervisor/record', [SupervisorController::class, 'viewData'])->name('svData');
-// ADD Supervisor Data
-Route::post('/supervisor/addRecord', [SupervisorController::class, 'addData'])->name('addSvData');
+
+Route::resource('supervisor', SupervisorsController::class);
+
+
+// // Supervisor Data
+// Route::get('/supervisor/record', [SupervisorController::class, 'viewData'])->name('svData');
+// // ADD Supervisor Data
+// Route::post('/supervisor/addRecord', [SupervisorController::class, 'addData'])->name('addSvData');
 
 
 //Company Data

@@ -123,7 +123,11 @@
                           <th>Matrik Number</th>
                           <th>ID Number</th>
                           <th>Name</th>
-                          </thead>
+                          <th>Poskod</th>
+                          <th>Bandar</th>
+                          <th>Negeri</th>
+                        </thead>
+                        
 
                           <tbody>
 
@@ -135,6 +139,9 @@
                                       <td>{{ $row->No_Matrik }}</td>
                                       <td>{{ $row->No_KP }}</td>
                                       <td>{{ $row->Nama }}</td>
+                                      <td>{{ $row->Poskod }}</td>
+                                      <td>{{ $row->Bandar }}</td>
+                                      <td>{{ $row->Negeri }}</td>
 
 
                                   </tr>

@@ -54,16 +54,21 @@
             {{-- Body Content --}}
             <!--Title-->
             <div>
-                <h1 class="text-center">
+                <div class="m-5">
+                    <img class="w-72" src="{{url('/images/building.svg')}}" alt="building" />
+                </div>
+                <h1 class="text-center font-serif">
                     This is the landing Page ...
                 </h1>
-                <h4 class="text-center">
+                <h4 class="text-center font-serif">
                     Coming Soon
                 </h4>
-                <p class="m-10 bg-sky-200 text-center" id="demo"></p>
+                <p class="m-5 font-mono text-blue-700 text-center font-bold " id="demo"></p>
+                
             </div>
             {{-- End of Body Content --}}
         </div>
+        
         <!-- Display the countdown timer in an element -->
 
 
