@@ -167,49 +167,8 @@
               </div>
 
           </div>
-          {{-- Location Table --}}
-          {{-- <div class="card"  style="margin-top:2rem">
-
-            <div class="card-header bgsize-primary-4 white card-header">
-              <h4 class="card-title" style="padding-top: 10px">Location List Table</h4>
-                  
-                
-            </div>
-
-            <div class="card-body">
-
-
-                <div class=" card-content table-responsive">
-
-                    <table id="student_t" class="table table-hover table-bordered" style="width:100%">
-
-                        <thead>
-
-                          <th scope="col">Post Code</th>
-                          <th scope="col">City</th>
-                          <th scope="col">State</th>
-
-                        </thead>
-
-                        <tbody>
-
-                          @foreach ( $location as $locations )
-                          <tbody>
-                              <tr>
-                                <th scope="row">{{$locations->Poskod}}</th>
-                                <td>{{$locations->Bandar}}</td>
-                                <td>{{$locations->Negeri}}</td>
-                          @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-
-        </div>
          {{-- Student Location --}}
-         {{-- <div class="card"  style="margin-top:2rem">
+         <div class="card"  style="margin-top:2rem">
 
           <div class="card-header bgsize-primary-4 white card-header">
             <h4 class="card-title" style="padding-top: 10px">Student Internship Location</h4>
@@ -243,7 +202,7 @@
                       </tbody>
                   </table>
               </div>
-          </div> --}}
+          </div>
 
       </div>
     </div>
