@@ -70,9 +70,11 @@
 
                                     @endif
 
-
+                                        
                                     </tbody>
+                                    
                                 </table>
+                                <button type="button" class="btn btn-primary">Assign Supervisor</button>
 
                             </div>
 

@@ -27,7 +27,7 @@
 		    <div class="flex text-white font-extrabold">
 				<a class="flex text-white text-base no-underline hover:text-white hover:no-underline" href="#"> 
 					
-                     <span class="hidden w-0 md:w-auto md:block pl-1">LI FSKTM</span>
+                     <span class="hidden w-0 md:w-auto md:block pl-1">LI FSKTM.v3</span>
 				</a>
             </div>
 			<div class="flex pl-4 text-sm">
@@ -68,7 +68,32 @@
             </div>
             {{-- End of Body Content --}}
         </div>
-        
+        <footer class="bg-gray-200 text-center lg:text-left">
+            <div class="container p-6 text-gray-800">
+                <div class="grid lg:grid-cols-2 gap-4">
+                  <div class="mb-6 md:mb-0">
+                    <h5 class="font-medium mb-2 uppercase">• Why Developing this system ?</h5>
+            
+                    <p class="mb-4">
+                      × This system is developed to help FSKTM to manage internship data and resources.
+                    </p>
+                  </div>
+            
+                  <div class="mb-6 md:mb-0">
+                    <h5 class="font-medium mb-2 uppercase">• Who will use the syste?</h5>
+            
+                    <p class="mb-4">
+                      × Every human being involved in the internship (Coordinator, Supervisors and Students).
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <div class="text-white text-center p-4 bg-blue-700">
+              © 2021 Copyright:
+              <a class="text-white" href="#">LI FSKTM</a>
+              <h4>By Bashar Alshaibani @t9dev</h4>
+            </div>
+        </footer>
         <!-- Display the countdown timer in an element -->
 
 

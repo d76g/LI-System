@@ -165,7 +165,7 @@
                   </div>
 
               </div>
-              {{-- <div class="card-body">
+              <div class="card-body">
                 <div class="card-header bgsize-primary-4 white card-header">
                     <h4 class="card-title" style="padding-top: 10px">Location</h4>
                     <p>Students are queried based on the State they take internship at.</p>
@@ -195,7 +195,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> --}}
+            </div>
           </div>
          {{-- Student Location --}}
           
