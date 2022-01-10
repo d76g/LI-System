@@ -54,7 +54,7 @@ Route::get('/document', [DocumentController::class, 'viewdoc'])->name('docPage')
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();
     $location = DB::table('students')
-        ->select(DB::raw('count(students.Negeri) as NumberOfStudents, students.Negeri'))
+        ->select(DB::raw('count(Negeri) as NumberOfStudents, Negeri'))
         ->groupBy('Negeri')
         ->orderByDesc('NumberOfStudents')
         ->get();
