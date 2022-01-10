@@ -5,6 +5,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supervisor;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
@@ -242,5 +243,15 @@ class ExcelController extends Controller
         } else {
             return Redirect()->back()->with('fail', 'Record was not deleted Successfully');
         }
+    }
+
+    public function viewAllocation($states)
+    {
+        $student = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();
+        $negeri = DB::table('students')
+            ->where('Negeri', '=', $states)
+            ->get();
+        $superviros = DB::table('supervisors')->get();
+        return view('allocation', compact('student', 'negeri', 'superviros'))->with('states', $states);
     }
 }

@@ -71,8 +71,10 @@
         <div class="container-lg" style="margin-top: 3rem">
             <div class="svrecord card">
                 <div>
+                    <a href="{{route("deleteCompanyData")}}" onclick="delConfi()"><button type="submit"  class="btn btn-danger float-end btn-sm m-2"><i class="fa fa-trash m-1" aria-hidden="true"></i> Delete Records</button></a>
                     <h2 class="card-header">Company Records</h2>
                 </div>
+                
                 <table class="table">
                     <thead>
                       <tr>
@@ -86,7 +88,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @php ($i = 1)
+                        @php
+                            $i = 1;
+                        @endphp
+                        @if (count($company) > 0)
                         @foreach($company as $row)
                         <tr>
                             <td>{{$i++}}</td>
@@ -102,6 +107,10 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                            <p class="h3 text-danger text-center m-3">No Record found</p>
+                            <p class="text-center fw-light"><i class="fa fa-plus" aria-hidden="true"></i> Add new Company record</p>
+                        @endif
                     </tbody>
                   </table>
             </div>
@@ -112,19 +121,22 @@
                 <h5>Review by Students and Supervisors</h5>
             </div>
             <div class="row">
-                @foreach ($company as $data)
-                    
+                @if (count($company) > 0)
                 
-                <div class="col-md-4">
-                    <div class="card p-3">
-                        <div class="d-flex flex-row mb-3"><img src="{{url('/images/'. $data->image_path)}}" width="70" alt="Company Image">
-                            <div class="d-flex flex-column ml-2"><span>{{ $data->name }}</span><span class="text-black-50">{{ $data->eco_sector }}</span><span class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></div>
+                    @foreach ($company as $data)
+                        <div class="col-md-4">
+                            <div class="card p-3">
+                                <div class="d-flex flex-row mb-3"><img src="{{url('/images/'. $data->image_path)}}" width="70" alt="Company Image">
+                                    <div class="d-flex flex-column ml-2"><span>{{ $data->name }}</span><span class="text-black-50">{{ $data->eco_sector }}</span><span class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></div>
+                                </div>
+                                <h6>{{'Email: ' . $data->email}}</h6>
+                                <div class="d-flex justify-content-between install mt-3"><span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div>
+                            </div>
                         </div>
-                        <h6>{{'Email: ' . $data->email}}</h6>
-                        <div class="d-flex justify-content-between install mt-3"><span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div>
-                    </div>
-                </div>
-                @endforeach
+                    @endforeach
+                    @else
+                        <p class="h5 text-danger text-center m-3">No Record found</p>
+                @endif
             </div>
         </div>
         

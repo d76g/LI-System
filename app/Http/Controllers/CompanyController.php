@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use finfo;
 use Illuminate\Support\Facades\Redirect;
@@ -44,5 +45,16 @@ class CompanyController extends Controller
         ]);
 
         return Redirect()->back()->with('success', 'Company Record Added Successfully');
+    }
+
+    public function deleteCompRecord(Request $request)
+    {
+        $delete = DB::table('companies')->delete();
+
+        if ($delete = true) {
+            return Redirect()->back()->with('success', 'Record deleted Successfully');
+        } else {
+            return Redirect()->back()->with('fail', 'Record was not deleted Successfully');
+        }
     }
 }

@@ -51,12 +51,13 @@
         <div class="container-lg" style="margin-top: 3rem">
             <div class="svrecord card">
                 <div>
+                    <a href="{{URL::to('supervisor/deleteSVRecord')}}" onclick="delConfi()"><button type="submit"  class="btn btn-danger float-end btn-sm m-2"><i class="fa fa-trash m-1" aria-hidden="true"></i> Delete Records</button></a>
                     <h2 class="card-header">Supervisors Records</h2>
                 </div>
                 <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">ID</th>@if (count($svData) > 0)
                         <th scope="col">Name</th>
                         <th scope="col">Staff ID</th>
                         <th scope="col">Email</th>
@@ -68,7 +69,7 @@
                         {{-- @php
                             $x= 1;
                         @endphp --}}
-                        @if (count($svData) > 0)
+                        
                             @foreach($svData as $row)
                             <tr>
                                 <td>{{$svData->firstItem()+$loop->index}}</td>

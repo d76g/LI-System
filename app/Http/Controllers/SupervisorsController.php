@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Supervisor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 
@@ -103,5 +104,16 @@ class SupervisorsController extends Controller
         $svData = Supervisor::find($id);
         $svData->delete();
         return Redirect()->back()->with('success', 'Supervisor Record Deleted Successfully');
+    }
+
+    public function deleteSVRecord(Request $request)
+    {
+        $delete = DB::table('superviros')->delete();
+
+        if ($delete = true) {
+            return Redirect()->back()->with('success', 'Record deleted Successfully');
+        } else {
+            return Redirect()->back()->with('fail', 'Record was not deleted Successfully');
+        }
     }
 }

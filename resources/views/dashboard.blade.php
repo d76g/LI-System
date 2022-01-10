@@ -165,46 +165,42 @@
                   </div>
 
               </div>
-
+              <div class="card-body">
+                <div class="card-header bgsize-primary-4 white card-header">
+                    <h4 class="card-title" style="padding-top: 10px">Location</h4>
+                    <p>Students are queried based on the State they take internship at.</p>
+                  </div>
+                <div class=" card-content table-responsive">
+  
+                    <table id="student_t" class="table table-hover table-bordered" style="width:100%">
+  
+                        <thead>
+  
+                          <tr>
+                            <th scope="col">State</th>
+                            <th scope="col">Number of Students
+                                <p class="fw-light fs-6">Select State to assign a Supervisor.</p>
+                            </th>
+                          </tr>
+  
+                        </thead>
+                          @foreach ( $location as $states)
+                      
+                          <tbody>
+                          <tr>
+                            <th scope="row">{{$states->Negeri}}</th>
+                            <td><a style="text-decoration: none" href="{{url('allocate/'.$states->Negeri)}}">{{$states->NumberOfStudents}}</a></td>
+                          @endforeach
+  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
           </div>
          {{-- Student Location --}}
-         {{-- <div class="card"  style="margin-top:2rem">
+          
 
-          <div class="card-header bgsize-primary-4 white card-header">
-            <h4 class="card-title" style="padding-top: 10px">Student Internship Location</h4>
-                
-              
-          </div>
-
-          <div class="card-body">
-
-
-              <div class=" card-content table-responsive">
-
-                  <table id="student_t" class="table table-hover table-bordered" style="width:100%">
-
-                      <thead>
-
-                        <tr>
-                          <th scope="col">State</th>
-                          <th scope="col">Number of Students</th>
-                        </tr>
-
-                      </thead>
-                        @foreach ( $state as $states)
-                    
-                        <tbody>
-                        <tr>
-                          <th scope="row">{{$states->Negeri}}</th>
-                          <td><a style="text-decoration: none" href="#">{{$states->NumberOfStudents}}</a></td>
-                        @endforeach
-
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-
-      </div> --}}
+      </div>
     </div>
        {{-- <script>
            function delConfi() {
