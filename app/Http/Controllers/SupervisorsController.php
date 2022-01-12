@@ -18,8 +18,9 @@ class SupervisorsController extends Controller
      */
     public function index()
     {
-        $svData = Supervisor::latest()->paginate(5);
-        return view('supervisor.Record.index')->with('svData', $svData);
+        $svData = Supervisor::paginate(5);
+        // $trashData = Supervisor::onlyTrashed()->latest()->paginate(3);
+        return view('supervisor.Record.index', compact('svData'));
     }
 
     /**
@@ -90,7 +91,14 @@ class SupervisorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $svData = Supervisor::find($id)->update([
+            'staff_id' => $request->staff_id,
+            'name' => $request->name,
+            'office_phone_number' => $request->phone,
+            'email' => $request->Email,
+            'updated_at' => Carbon::now()
+        ]);
+        return Redirect()->route('supervisor.index')->with('success', 'Supervisor Record Updated Successfully');
     }
 
     /**

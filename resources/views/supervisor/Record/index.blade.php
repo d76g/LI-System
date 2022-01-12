@@ -51,13 +51,12 @@
         <div class="container-lg" style="margin-top: 3rem">
             <div class="svrecord card">
                 <div>
-                    <a href="{{URL::to('supervisor/deleteSVRecord')}}" onclick="delConfi()"><button type="submit"  class="btn btn-danger float-end btn-sm m-2"><i class="fa fa-trash m-1" aria-hidden="true"></i> Delete Records</button></a>
                     <h2 class="card-header">Supervisors Records</h2>
                 </div>
                 <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">ID</th>@if (count($svData) > 0)
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Staff ID</th>
                         <th scope="col">Email</th>
@@ -69,7 +68,7 @@
                         {{-- @php
                             $x= 1;
                         @endphp --}}
-                        
+                        @if (@isset($svData))
                             @foreach($svData as $row)
                             <tr>
                                 <td>{{$svData->firstItem()+$loop->index}}</td>
@@ -78,17 +77,16 @@
                                 <td>{{ $row->email }}</td>
                                 <td>{{'+60'.$row->office_phone_number }}</td>
                                 <td>
-                                    <a href="{{URL::to('supervisor/edit')}}"><button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-                                        Edit</button></a>
-                                    <a href=""> <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></a>
-                                    {{-- <form action="" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <input type="submit" value="Delete" class="fa fa-trash btn btn-danger">
-                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                                    </form> --}}
-                                </td>
-                            </tr>
+                                    <div class="d-grid gap-1 d-md-flex justify-content-md">
+                                        <a href="supervisor/{{$row->id}}/edit"><button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                            Edit</button></a>
+                                        <form action="{{ route('supervisor.destroy', $row -> id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button> 
+                                        </form> 
+                                    </div>
+                                </td>           
                             @endforeach
                         @else
                             <p class="h3 text-danger text-center m-3">No Record found</p>
@@ -99,7 +97,7 @@
 
                   </table>
                   <div class="px-5">
-                    <p>{{$svData->onEachSide(5)->links()}}</p>
+                    <p>{{$svData->links()}}</p>
                   </div>
                   
             </div>

@@ -12,7 +12,7 @@
                     @include('supervisor.partials.index')
                 @endif
                 
-                <form class="row g-3 pt-3" action="{{URL::to('supervisor/edit', $svData ->staff_id)}}" method="GET">
+                <form class="row g-3 pt-3" action="{{route('supervisor.update',$svData ->id)}}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="col-md-8">
