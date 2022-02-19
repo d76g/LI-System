@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
+        <link rel="icon" type="image/png" href="{{ asset('lifav.png') }}">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Welcome .. <b>{{Auth::user()->name}}</b>
             <b style="float: right;">Total Students 
@@ -9,7 +10,7 @@
     </x-slot>
     <div class="py-12">
         
-<div class="container">
+<div class="container-xl">
 
   <div class="row justify-content-centre" style="margin-top: 4%">
 
