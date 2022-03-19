@@ -12,8 +12,9 @@
                      @include('company.partials.index')
                 @endif
                 
-                <form class="row g-3 pt-3" action="{{route('addCompanyData')}}" method="POST" enctype="multipart/form-data">
+                <form class="row g-3 pt-3" action="{{URL::to('company/create')}}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('GET')
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Company Name</label>
                         <input name="name" type="text" class="form-control" id="svname" placeholder="Company Name">
@@ -71,7 +72,6 @@
         <div class="container-lg" style="margin-top: 3rem">
             <div class="svrecord card">
                 <div>
-                    <a href="{{route("deleteCompanyData")}}" onclick="delConfi()"><button type="submit"  class="btn btn-danger float-end btn-sm m-2"><i class="fa fa-trash m-1" aria-hidden="true"></i> Delete Records</button></a>
                     <h2 class="card-header">Company Records</h2>
                 </div>
                 
@@ -101,9 +101,15 @@
                             <td>{{ $row->email }}</td>
                             <td>{{'+60'.$row->phone_number }}</td>
                             <td>
-                                <button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-                                    Edit</button>
-                                <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                <div class="d-grid gap-1 d-md-flex justify-content-md">
+                                    <a href="company/{{$row->id}}/edit"><button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                        Edit</button></a>
+                                    <form action="{{ route('company.destroy', $row -> id) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <a onclick="return confirm('Are you sure to Delete this record?')"><button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" ></i> Delete</button></a>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
@@ -126,7 +132,7 @@
                     @foreach ($company as $data)
                         <div class="col-md-4">
                             <div class="card p-3">
-                                <div class="d-flex flex-row mb-3"><img src="{{url('/images/'. $data->image_path)}}" width="70" alt="Company Image">
+                                <div class="d-flex flex-row mb-3"><img src="{{Storage::URL($data->image_path)}}" width="70" alt="Company Image">
                                     <div class="d-flex flex-column ml-2"><span>{{ $data->name }}</span><span class="text-black-50">{{ $data->eco_sector }}</span><span class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></div>
                                 </div>
                                 <h6>{{'Email: ' . $data->email}}</h6>

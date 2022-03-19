@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompaniesController;
 use app\Models\User;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,7 @@ Route::get('/', function () {
 });
 
 Route::resource('supervisor', SupervisorsController::class);
+Route::resource('company', CompaniesController::class);
 
 
 // // Supervisor Data
@@ -36,12 +38,12 @@ Route::resource('supervisor', SupervisorsController::class);
 // Route::post('/supervisor/addRecord', [SupervisorController::class, 'addData'])->name('addSvData');
 
 
-//Company Data
-Route::get('/company/record', [CompanyController::class, 'viewData'])->name('CompanyData');
-//Add Company
-Route::post('/company/addrecord', [CompanyController::class, 'addCompany'])->name('addCompanyData');
-//Remove Company
-Route::get('company/delete',  [CompanyController::class, 'deleteCompRecord'])->name('deleteCompanyData');
+// //Company Data
+// Route::get('/company/record', [CompanyController::class, 'viewData'])->name('CompanyData');
+// //Add Company
+// Route::post('/company/addrecord', [CompanyController::class, 'addCompany'])->name('addCompanyData');
+// //Remove Company
+// Route::get('company/delete',  [CompanyController::class, 'deleteCompRecord'])->name('deleteCompanyData');
 
 Route::get('dashboard', [ExcelController::class, 'index']);
 Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');

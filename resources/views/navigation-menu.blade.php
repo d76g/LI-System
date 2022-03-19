@@ -22,7 +22,7 @@
                         {{ __('Supervisors') }}
                     </x-jet-nav-link>
         
-                    <x-jet-nav-link href="{{ route('CompanyData') }}">
+                    <x-jet-nav-link href="{{ URL::to('company') }}">
                         {{ __('Company') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('docPage') }}">
