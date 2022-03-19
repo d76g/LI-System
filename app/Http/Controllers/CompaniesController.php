@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\company;
 use Carbon\Carbon;
+use App\Models\company;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CompaniesController extends Controller
 {
@@ -40,21 +41,22 @@ class CompaniesController extends Controller
 
         // $request->image->move(public_path('images'), $newImageName);
 
-        $companyImage = $request->file('image');
+        // $companyImage = $request->file('image');
 
-        $ImageName = time() . '-' . $request->name . '.' . $request->image->getClientOriginalExtension();
-        $up_location = 'images/company/';
-        $newImage = $up_location . $ImageName;
-        $companyImage->move($up_location, $ImageName);
+        // $ImageName = time() . '-' . $request->name . '.' . $request->image->getClientOriginalExtension();
+        // $up_location = 'images/company/';
+        // $newImage = $up_location . $ImageName;
+        // $companyImage->move($up_location, $ImageName);
 
-
+        // $newImage = $request->file('images/Company')->store('images');
+        // $newImage = Storage::putFile('image', $request->file('images'));
         company::insert([
             'name' => $request->name,
             'eco_sector' => $request->eco_sector,
             'sector' => $request->sector,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
-            'image_path' => $newImage,
+            'image_path' => $request->file('image')->store('images', 'public'),
             'created_at' => Carbon::now()
 
         ]);
@@ -113,16 +115,10 @@ class CompaniesController extends Controller
             'phone_number' => 'required',
             'image' => 'mimes:jpg,png,jpeg|max:5048',
         ]);
-
-        if ($companyImage = $request->file('image')) {
-
+        $newImage = $request->file('image');
+        if ($newImage) {
             $oldImageName = $request->old_image;
-            $ImageName = time() . '-' . $request->name . '.' . $request->image->getClientOriginalExtension();
-            $up_location = 'images/company/';
-            $newImage = $up_location . $ImageName;
-            $companyImage->move($up_location, $ImageName);
-
-            unlink($oldImageName);
+            Storage::delete($oldImageName);
 
             company::find($id)->update([
                 'name' => $request->name,
@@ -130,12 +126,11 @@ class CompaniesController extends Controller
                 'sector' => $request->sector,
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
-                'image_path' => $newImage,
+                'image_path' => $request->Input::file('image'),
                 'updated_at' => Carbon::now(),
             ]);
             return Redirect()->route('company.index')->with('success', 'Company Record Updated Successfully');
         } else {
-
             company::find($id)->update([
                 'name' => $request->name,
                 'eco_sector' => $request->eco_sector,
@@ -158,7 +153,7 @@ class CompaniesController extends Controller
     {
         $Image = company::find($id);
         $oldImageName = $Image->image_path;
-        unlink($oldImageName);
+        Storage::delete($oldImageName);
 
         $companyData = company::find($id);
         $companyData->delete();
