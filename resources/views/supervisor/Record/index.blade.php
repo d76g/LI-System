@@ -16,7 +16,7 @@
                     @csrf
                     @method('GET')
                     <div class="col-md-8">
-                        <label for="inputEmail4" class="form-label">Full Name</label>
+                        <label class="form-label">Full Name</label>
                         <input name="name" type="text" class="form-control" id="svname" placeholder="Full Name">
 
                         @error('name')
@@ -24,21 +24,21 @@
                         @enderror
                     </div>
                     <div class="col-4">
-                        <label for="inputAddress" class="form-label">Staff ID</label>
+                        <label class="form-label">Staff ID</label>
                         <input name="staff_id" type="text" class="form-control" id="svid" placeholder="Staff ID">
                         @error('staff_id')
                             <span class="text-light">{{'*'.$message}}</span>
                         @enderror
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Email</label>
+                        <label class="form-label">Email</label>
                         <input name="Email" type="email" class="form-control" id="svemail" placeholder="example@uthm.edu">
                         @error('Email')
                             <span class="text-light">{{'*'.$message}}</span>
                         @enderror
                     </div>
                     <div class="col-6">
-                        <label for="inputAddress" class="form-label">Office Phone Number</label>
+                        <label  class="form-label">Office Phone Number</label>
                         <input  name="phone" type="text" class="form-control" id="inputAddress" placeholder="+60">
                     </div>
                     <div class="col-4" style="margin-bottom: 2rem">

@@ -15,7 +15,6 @@
                 <form class="row g-3 pt-3" action="{{route('company.update',$companyData->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="old_image" value="{{$companyData->image_path}}">
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Company Name</label>
                         <input name="name" type="text" class="form-control" value="{{$companyData->name}}">
@@ -59,7 +58,7 @@
                             <label  class="input-group-text" for="inputGroupFile02">Upload</label>
                         </div>
                         <figure class="figure">
-                            <img class="figure-img img-fluid rounded" src="{{asset($companyData->image_path)}}" width="180" alt="Company Image">
+                            <img class="figure-img img-fluid rounded" src="{{Storage::URL($companyData->image_path)}}" width="180" alt="Company Image">
                             <figcaption class="figure-caption text-left text-white">Current Image</figcaption>
                         </figure>
                         
@@ -70,6 +69,7 @@
                     
                     <div class="col-3" style="margin-bottom: 1rem">
                         <button type="submit" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Update Record</button>
+                        <a href="{{URL::to('company')}}"><button class="btn btn-danger float-right"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Go Back</button></a>
                     </div>
                 </form>
             </div>

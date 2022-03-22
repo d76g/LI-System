@@ -25,7 +25,7 @@
                     <x-jet-nav-link href="{{ URL::to('company') }}">
                         {{ __('Company') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('docPage') }}">
+                    <x-jet-nav-link href="{{ URL::to('documents') }}">
                         {{ __('Documents') }}
                     </x-jet-nav-link>
                 </div>

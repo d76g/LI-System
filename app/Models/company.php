@@ -14,6 +14,6 @@ class company extends Model
         'sector',
         'email',
         'phone_number',
-        'image',
+        'image_path',
     ];
 }

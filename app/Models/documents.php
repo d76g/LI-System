@@ -11,5 +11,6 @@ class documents extends Model
     protected $fillable = [
         'title',
         'content',
+        'document_path',
     ];
 }
