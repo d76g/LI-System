@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\documents;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +21,7 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        $documents = documents::all();
+        $documents = documents::paginate(2);
         return view('documents.record.index', compact('documents'));
     }
     public function viewDoc()
@@ -104,10 +105,9 @@ class DocumentsController extends Controller
             [
                 'title' => 'required|max:150',
                 'content' => 'required|max:300',
-                'document' => 'required|mimes:csv,txt,xlx,xls,pdf,pptx,doc|max:100000',
+                'document' => 'mimes:csv,txt,xlx,xls,pdf,pptx,doc|max:100000',
             ],
             [
-                'document.required' => 'Please choose a document to upload',
                 'document.mimes' => 'Please Upload file with csv,txt,xlx,xls,pdf,pptx,doc',
                 'document.max' => 'Please Upload file max size of 100000KB',
 
@@ -115,23 +115,24 @@ class DocumentsController extends Controller
         );
 
         if ($request->hasFile('document')) {
+
             $File = documents::find($id);
             $oldFileName = $File->document_path;
             Storage::disk('public')->delete($oldFileName);
             $newFile = $request->file('document')->store('LIdocuments', 'public');
+
             documents::find($id)->update([
                 'title' => $request->title,
                 'content' => $request->content,
                 'document_path' => $newFile,
-                'created_at' => Carbon::now()
+                'updated_at' => Carbon::now()
             ]);
-
             return Redirect()->route('documents.index')->with('success', ' Document Details Updated Successfully');
         } else {
             documents::find($id)->update([
                 'title' => $request->title,
                 'content' => $request->content,
-                'created_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
             ]);
             return Redirect()->route('documents.index')->with('success', ' Document Details Updated Successfully');
         }

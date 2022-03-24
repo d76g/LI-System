@@ -1,4 +1,5 @@
 <x-app-layout>
+  <body>
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> --}}
         <!-- Page Content -->
 <div class="container">
@@ -8,7 +9,8 @@
       <small>Downloads</small>
     </h1>
     <div class="container-md  pt-3 " style="margin-top: 2rem">
-      <h2>Upload Documents</h2>
+      <h2>Upload Documents <button onclick="viewForm();" class="btn btn-dark btn-sm"> Upload Docs</button></h2>
+      <div id="viewForm" style="display: none">
       <div class="container-md pt-4 bg-info bg-gradient text-white rounded" >
           @if (session('success'))
                @include('documents.partials.index')
@@ -48,8 +50,10 @@
               </div>
           </form>
       </div>
+      <hr>
+    </div>
   </div>
-    <hr>
+    
     <!-- Project One -->
     @if (session('deleteSuccess'))
            @include('documents.partials.index')
@@ -74,7 +78,9 @@
       </div>      
     </div>
     @endforeach
-
+    <div class="px-2">
+      <p>{{$documents->links()}}</p>
+    </div>
 <hr>
 <div class="container">
     <h1 class="my-4">Internship Images
@@ -129,4 +135,6 @@
 
   </div>
   <!-- /.container -->
+  {{-- Script to hide and View Form --}}
+  <script src="{{URL::asset('js/hideAndView.js')}}" type="text/javascript"></script>
 </x-app-layout>

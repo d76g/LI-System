@@ -1,11 +1,19 @@
 <x-app-layout>
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> --}}
           <!-- Page Content -->
+          <style>
+              html {
+                  scroll-behavior: smooth;
+              }
+          </style>
   <div class="container">
-  
       <!-- Page Heading -->
       <div class="container-md  pt-3 " style="margin-top: 2rem">
-        <h2>Edit Document</h2>
+        <div class="d-flex justify-content-right ">
+            <a href="{{URL::to('documents')}}" class="pt-2 mr-2 link-dark" style="text-decoration-line: none"><i class="fa fa-arrow-circle-left fa-xl" aria-hidden="true"></i></a>
+            <h2>Edit Document </h2>
+        </div>
+        
         <div class="container-md pt-4 bg-info bg-gradient text-white rounded" >
             @if (session('success'))
                  @include('documents.partials.index')
@@ -39,25 +47,23 @@
                         <span class="text-light">{{'*'.$message}}</span>
                     @enderror
                 </div>
-                <div id="docView" class="col-3">
-                    <embed src="{{Storage::URL($docData->document_path)}}" width="800px" height="1000px" />
-                </div>
                 
                 <div class="col-3 mt-2" style="margin-bottom: 2rem">
-                    <button type="submit" class="btn btn-primary float-right"><i class="fa fa-upload" aria-hidden="true"></i> Upload Docs</button>
-                    <button onclick="viewDoc()" class="btn btn-secondary float-right"><i class="fa fa-eye" aria-hidden="true"></i> View Docs</button>
+                    <button type="submit" class="btn btn-primary float-right"><i class="fa fa-upload" aria-hidden="true"></i> Update </button>
+                    <a href="#docView"><button onclick="viewDoc(); return false;" class="btn btn-secondary float-right"><i class="fa fa-eye" aria-hidden="true"></i> View Doc</button></a>
+                    <p class="mt-2">Note: View Doc : only PDF File Type.</p>
                 </div>
+                
             </form>
         </div>
     </div>
-    <script>
-        function viewDoc(){
-            var x = document.getElementById("docView");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-        }
-    </script>
+
+        <div id="docView" class="pt-3 pb-5" style="display: none">
+            <div class="container-md p-3 d-flex justify-content-center bg-dark rounded">
+                <embed src="{{Storage::URL($docData->document_path)}}" width="800px" height="700px" />
+            </div>
+        </div>
+    
+    {{-- Script to hide and View Form --}}
+  <script src="{{URL::asset('js/hideAndView.js')}}" type="text/javascript"></script
 </x-app-layout>
