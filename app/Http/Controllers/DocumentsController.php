@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 
 use App\Models\documents;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
+use App\Models\MultiPictures;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Storage;
 use League\CommonMark\Node\Block\Document;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
 
@@ -21,13 +22,11 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        $documents = documents::paginate(2);
-        return view('documents.record.index', compact('documents'));
+        $documents = documents::orderBy('id', 'desc')->paginate(10);
+        $multiImages = MultiPictures::orderBy('id', 'desc')->get();
+        return view('documents.record.index', compact('documents', 'multiImages'));
     }
-    public function viewDoc()
-    {
-        return view('documents.record.viewDoc');
-    }
+
 
     /**
      * Show the form for creating a new resource.

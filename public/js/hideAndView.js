@@ -16,3 +16,11 @@ function viewDoc(){
             x.style.display = "block";
         }
 }
+function multiImageForm(){
+    var x = document.getElementById("multiImageForm");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+}

@@ -9,12 +9,13 @@
       <small>Downloads</small>
     </h1>
     <div class="container-md  pt-3 " style="margin-top: 2rem">
-      <h2>Upload Documents <button onclick="viewForm();" class="btn btn-dark btn-sm"> Upload Docs</button></h2>
+      <h2>Upload Documents <button onclick="viewForm(); return false;" class="btn btn-dark btn-sm"> Upload Docs</button></h2>
+      @if (session('success'))
+               @include('documents.partials.index')
+      @endif
       <div id="viewForm" style="display: none">
       <div class="container-md pt-4 bg-info bg-gradient text-white rounded" >
-          @if (session('success'))
-               @include('documents.partials.index')
-          @endif
+          
           
           <form class="row g-3 pt-3" action="{{URL::to('documents/create')}}" method="POST" enctype="multipart/form-data">
               @csrf
@@ -40,7 +41,7 @@
                       <input name="document" type="file" class="form-control">
                       <label  class="input-group-text">Upload</label>
                   </div>
-                  @error('document_path')
+                  @error('document')
                       <span class="text-light">{{'*'.$message}}</span>
                   @enderror
               </div>
@@ -61,80 +62,84 @@
     @foreach ($documents as $data)
     <hr>
     <div class="row">
-        <h3>{{$data->title}}</h3>
+        <div class="container">
+          <h3 class="float-start">{{$data->title}}</h3>
+          <p class=" text-secondary float-end p-2">{{ $data->created_at->diffForHumans()}}</p>
+        </div>
         <p>{{$data->content}}</p>
         <div class="col">
             <a class="btn btn-primary float-end" href="{{Storage::URL($data->document_path)}}" download="{{$data->title}}"><i class="fa fa-download" aria-hidden="true"></i>
                Download</a>
         </div>
         <div class="d-grid gap-1 d-md-flex justify-content-md">
-          <a href="documents/{{$data->id}}/edit"><button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-              Edit</button></a>
-          <form action="{{ route('documents.destroy', $data -> id) }}" method="POST">
-                  @method('DELETE')
-                  @csrf
-                  <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button> 
-          </form> 
-      </div>      
+          
+            <a href="documents/{{$data->id}}/edit"><button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
+                Edit</button></a>
+            <form action="{{ route('documents.destroy', $data -> id) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button> 
+            </form> 
+        </div>      
     </div>
     @endforeach
     <div class="px-2">
       <p>{{$documents->links()}}</p>
     </div>
 <hr>
-<div class="container">
-    <h1 class="my-4">Internship Images
-        <small>For Information</small>
-      </h1>
+  </div>
+  <!-- /.container -->
+  <div class="container">
+    <h1 class="my-4">Related Internship Images
+      {{-- <button onclick="multiImageForm(); return false;" class="btn btn-dark btn-sm"> Upload Images</button> --}}
+      <div class="btn-group">
+        <button type="button" class="btn btn-dark btn-sm" onclick="multiImageForm(); return false;">Upload Images</button>
+        <button type="button" class="btn btn-dark  btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{{URL::to('MultiPictures/edit')}}">Edit</a>
+        </div>
+      </div>
+    </h1>
+      <div id="multiImageForm" style="display: none">
+          <div class="container-md pt-4 bg-info bg-gradient text-white rounded" >
+              
+              
+              <form class="row g-3 pt-3" action="{{URL::to('MultiPictures/create')}}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  @method('GET')
+                  <div class="col-6 input-group ">
+                      <label class="form-label">Upload Image</label>
+                      <div class="input-group mb-1">
+                          <input name="images[]" type="file" class="form-control" multiple>
+                          <label  class="input-group-text">Upload</label>
+                      </div>
+                      @error('images')
+                          <span class="text-light">{{'*'.$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="col-3" style="margin-bottom: 1rem">
+                      <button type="submit" class="btn btn-primary"><i class="fa fa-upload" aria-hidden="true"></i> Upload Images</button>
+                  </div>
+              </form>
+          </div>
+      </div>
       <hr>
     <div class="container">
         <div class="row d-flex flex-wrap align-items-center" data-toggle="modal" data-target="#lightbox">
-            <div class="col-12 col-md-6 col-lg-3">
-                
-            <img src="{{url('/images/eli1.jpg')}}" data-target="#indicators" data-slide-to="0" alt="eLI Image" /> 
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <img src="{{url('/images/eli2.jpg')}}" data-target="#indicators" data-slide-to="1" alt="" />
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <img src="{{url('/images/eli3.jpg')}}" data-target="#indicators" data-slide-to="2"  alt="" />
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <img src="{{url('/images/eli4.jpg')}}" data-target="#indicators" data-slide-to="3" alt="" />
-            </div>
 
+          @foreach ($multiImages as $img)
+            <div class="col-12 col-md-6 col-lg-3"> 
+              <img src="{{Storage::URL($img->images_path)}}" data-target="#indicators" data-slide-to="0" alt="eLI Image" /> 
+            </div> 
+          @endforeach
+          {{-- <div class="px-2">
+              <p>{{$multiImages->links()}}</p>
+          </div> --}}
         </div>
     </div>
 </div>
-      <hr>
-    
-    <!-- Pagination -->
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">1</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">2</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul>
-
-  </div>
-  <!-- /.container -->
   {{-- Script to hide and View Form --}}
   <script src="{{URL::asset('js/hideAndView.js')}}" type="text/javascript"></script>
 </x-app-layout>

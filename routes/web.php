@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelController;
 use League\CommonMark\Node\Block\Document;
 use App\Http\Controllers\DocumentsController;
+use App\Http\Controllers\MultiPicController;
 use App\Http\Controllers\SupervisorsController;
 
 /*
@@ -30,6 +31,7 @@ Route::resources([
     'supervisor' => SupervisorsController::class,
     'company' => CompaniesController::class,
     'documents' => DocumentsController::class,
+    'MultiPictures' => MultiPicController::class,
 
 ]);
 
