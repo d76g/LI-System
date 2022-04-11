@@ -23,6 +23,8 @@ class CreateSupervisorsTable extends Migration
         });
     }
 
+
+
     /**
      * Reverse the migrations.
      *

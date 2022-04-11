@@ -19,10 +19,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-
-
-
-
+use Students;
 
 class ExcelController extends Controller
 
@@ -33,17 +30,6 @@ class ExcelController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 
      */
-
-    function index()
-
-    {
-
-        $data = DB::table('students')->orderBy('Nama', 'ASC')->paginate(5);
-
-        return view('dashboard', compact('data'));
-    }
-
-
 
 
     /**
@@ -104,18 +90,28 @@ class ExcelController extends Controller
                 $data[] = [
 
                     'id' => $sheet->getCell('A' . $row)->getValue(),
-
                     'No_Matrik' => $sheet->getCell('B' . $row)->getValue(),
-
                     'No_KP' => $sheet->getCell('C' . $row)->getValue(),
-
                     'Nama' => $sheet->getCell('D' . $row)->getValue(),
-
-                    'Poskod' => $sheet->getCell('E' . $row)->getValue(),
-
-                    'Bandar' => $sheet->getCell('F' . $row)->getValue(),
-
-                    'Negeri' => $sheet->getCell('G' . $row)->getValue(),
+                    'kod_Prog' => $sheet->getCell('E' . $row)->getValue(),
+                    'Tahun_Pengajian' => $sheet->getCell('F' . $row)->getValue(),
+                    'No_Tel_Pelajar' => $sheet->getCell('G' . $row)->getValue(),
+                    'Nama_Syarikat_LI' => $sheet->getCell('H' . $row)->getValue(),
+                    'Sektor' => $sheet->getCell('I' . $row)->getValue(),
+                    'Sektor_Ekonomi' => $sheet->getCell('J' . $row)->getValue(),
+                    'Alamat_Syarikat' => $sheet->getCell('K' . $row)->getValue(),
+                    'Poskod' => $sheet->getCell('L' . $row)->getValue(),
+                    'Bandar' => $sheet->getCell('M' . $row)->getValue(),
+                    'Negeri' => $sheet->getCell('N' . $row)->getValue(),
+                    'Pegawai' => $sheet->getCell('O' . $row)->getValue(),
+                    'No_Tel_Syarikat' => $sheet->getCell('P' . $row)->getValue(),
+                    'No_Faks_Syarikat' => $sheet->getCell('Q' . $row)->getValue(),
+                    'Tarikh_Mula_LI' => $sheet->getCell('R' . $row)->getValue(),
+                    'Tarikh_Tamat_LI' => $sheet->getCell('S' . $row)->getValue(),
+                    'Tarikh_Lapor_Diri' => $sheet->getCell('T' . $row)->getValue(),
+                    'Penyelia_Fakulti_id' => $sheet->getCell('U' . $row)->getValue(),
+                    'Program' => $sheet->getCell('V' . $row)->getValue(),
+                    'Status' => $sheet->getCell('W' . $row)->getValue(),
 
 
                 ];
@@ -137,7 +133,7 @@ class ExcelController extends Controller
             return back()->withErrors('There was a problem uploading the data!');
         }
 
-        return back()->withSuccess('Great! Data has been successfully uploaded.');
+        return back()->withSuccess('Great! Students Data has been successfully uploaded.');
     }
 
 
@@ -208,7 +204,7 @@ class ExcelController extends Controller
 
 
 
-        $data_array[] = array("id", "No_Matrik", "No_KP", "Nama", "Poskod", "Bandar", "Negeri");
+        $data_array[] = array("id", "No_Matrik", "No_KP", "Nama", "Poskod", "Bandar", "Negeri", "Kod_Prog", "Tahun_Pengajian", "No_Tel_Pelajar", "Nama_Syarikat_LI", "Sektor", "Sektor_Ekonomi", "Alamat_Syarikat", "Pegawai", "No_Tel_Syarikat", "No_Faks_Syarikat", "Tarikh_Mula_LI", "Tarikh_Tamat_LI", "Tarikh_Lapor_Diri", "Penyelia_Fakulti_id", "Program", "Status");
 
         foreach ($data as $data_item) {
 
@@ -222,11 +218,44 @@ class ExcelController extends Controller
 
                 'Nama' => $data_item->Nama,
 
+                'Kod_Prog' => $data_item->Kod_Prog,
+
+                'Tahun_Pengajian' => $data_item->Tahun_Pengajian,
+
+                'No_Tel_Pelajar' => $data_item->No_Tel_Pelajar,
+
+                'Nama_Syarikat_LI' => $data_item->Nama_Syarikat_LI,
+
+                'Sektor' => $data_item->Sektor,
+
+                'Sektor_Ekonomi' => $data_item->Sektor_Ekonomi,
+
+                'Alamat_Syarikat' => $data_item->Alamat_Syarikat,
+
                 'Poskod' => $data_item->Poskod,
 
                 'Bandar' => $data_item->Bandar,
 
                 'Negeri' => $data_item->Negeri,
+
+                'Pegawai' => $data_item->Pegawai,
+
+                'No_Tel_Syarikat' => $data_item->No_Tel_Syarikat,
+
+                'No_Faks_Syarikat' => $data_item->No_Faks_Syarikat,
+
+                'Tarikh_Mula_LI' => $data_item->Tarikh_Mula_LI,
+
+                'Tarikh_Tamat_LI' => $data_item->Tarikh_Tamat_LI,
+
+                'Tarikh_Lapor_Diri' => $data_item->Tarikh_Lapor_Diri,
+
+                'Penyelia_Fakulti_id' => $data_item->Penyelia_Fakulti_id,
+
+                'Program' => $data_item->Program,
+
+                'Status' => $data_item->Status,
+
 
             );
         }
@@ -249,7 +278,7 @@ class ExcelController extends Controller
     {
         $student = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();
         $negeri = DB::table('students')
-            ->where('Negeri', '=', $states)
+            ->where('Negeri', '=', $states)->orderBy('Poskod', 'desc')
             ->get();
         $superviros = DB::table('supervisors')->get();
         return view('allocation', compact('student', 'negeri', 'superviros'))->with('states', $states);

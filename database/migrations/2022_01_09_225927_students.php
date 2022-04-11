@@ -18,12 +18,30 @@ class Students extends Migration
             $table->string('No_Matrik');
             $table->string('No_KP');
             $table->string('Nama');
+            $table->string('Kod_Prog');
+            $table->integer('Tahun_Pengajian');
+            $table->string('No_Tel_Pelajar')->nullable();
+            $table->text('Nama_Syarikat_LI');
+            $table->string('Sektor');
+            $table->string('Sektor_Ekonomi')->nullable();;
+            $table->string('Alamat_Syarikat');
             $table->integer('Poskod');
-            $table->string('Bandar');
+            $table->string('Bandar')->nullable();
             $table->string('Negeri');
-            $table->timestamps();
+            $table->string('Pegawai');
+            $table->string('No_Tel_Syarikat')->nullable();
+            $table->string('No_Faks_Syarikat')->nullable();
+            $table->string('Tarikh_Mula_LI')->nullable();
+            $table->string('Tarikh_Tamat_LI')->nullable();
+            $table->string('Tarikh_Lapor_Diri')->nullable();
+            $table->string('Penyelia_Fakulti_id')->nullable();
+            // *$table->foreignId('Penyelia_Fakulti_id')->constrained('supervisors')->cascadeOnUpdate()->nullable();
+            $table->string('Program');
+            $table->text('Status')->nullable();
         });
     }
+
+
 
     /**
      * Reverse the migrations.

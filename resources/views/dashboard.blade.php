@@ -3,9 +3,6 @@
         <link rel="icon" type="image/png" href="{{ asset('lifav.png') }}">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Welcome .. <b>{{Auth::user()->name}}</b>
-            <b style="float: right;">Total Students 
-                <span class="badge bg-danger">{{ count($students) }}</span>
-            </b>
         </h2>
     </x-slot>
     <div class="py-12">
@@ -106,27 +103,42 @@
           {{-- Student List Table --}}
           <div class="card">
             <div class="card-header bgsize-primary-4 white card-header">
-                <a href="{{route("deleteData")}}" onclick="delConfi()"><button type="submit"  class="btn btn-danger float-end btn-sm m-2"><i class="fa fa-trash m-1" aria-hidden="true"></i> Delete Records</button></a>
+                <div class="pull-right">
+                    <a href="{{route("deleteData")}}" onclick="delConfi()"><button type="submit"  class="btn btn-danger float-end btn-sm m-2"><i class="fa fa-trash m-1" aria-hidden="true"></i> Delete Records</button></a>
+                    <a href="{{route("exportData")}}" class="btn btn-primary float-end btn-sm m-2"><i class="fa fa-download m-1" aria-hidden="true"></i>Export Excel Data</a>
+                </div>
                 <h4 class="card-title" style="padding-top: 10px">Student List Table</h4>
                     
                   
               </div>
 
-              <div class="card-body">
+              <div class="card-body" style="height:50%">
 
 
                   <div class=" card-content table-responsive">
 
-                      <table id="student_t" class="table table-hover table-bordered" style="width:100%">
+                      <table id="student_t" class="table table-hover table-bordered text-nowrap" style="width:100%">
 
                           <thead>
                           <th>Bil</th>
-                          <th>Matrik Number</th>
-                          <th>ID Number</th>
-                          <th>Name</th>
+                          <th>No_Matrik</th>
+                          <th>No_KP</th>
+                          <th>Nama</th>
+                          <th>Tahun_Pengajian</th>
+                          <th>No_Tel_Pelajar</th>
+                          <th>Nama_Syarikat_LI</th>
+                          <th>Sektor</th>
+                          <th>Sektor_Ekonomi</th>
                           <th>Poskod</th>
                           <th>Bandar</th>
                           <th>Negeri</th>
+                          <th>Pegawai</th>
+                          <th>No_Tel_Syarikat</th>
+                          <th>No_Faks_Syarikat</th>
+                          <th>Tarikh_Mula_LI</th>
+                          <th>Penyelia_Fakulti</th>
+                          <th>Program</th>
+                          <th>Status</th>
                         </thead>
                         
 
@@ -140,9 +152,21 @@
                                       <td>{{ $row->No_Matrik }}</td>
                                       <td>{{ $row->No_KP }}</td>
                                       <td>{{ $row->Nama }}</td>
+                                      <td>{{ $row->Tahun_Pengajian }}</td>
+                                      <td>{{ $row->No_Tel_Pelajar }}</td>
+                                      <td>{{ $row->Nama_Syarikat_LI }}</td>
+                                      <td>{{ $row->Sektor }}</td>
+                                      <td>{{ $row->Sektor_Ekonomi }}</td>
                                       <td>{{ $row->Poskod }}</td>
                                       <td>{{ $row->Bandar }}</td>
                                       <td>{{ $row->Negeri }}</td>
+                                      <td>{{ $row->Pegawai }}</td>
+                                      <td>{{ $row->No_Tel_Syarikat }}</td>
+                                      <td>{{ $row->No_Faks_Syarikat }}</td>
+                                      <td>{{ $row->Tarikh_Mula_LI }}</td>
+                                      <td>{{ $row->Penyelia_Fakulti_id }}</td>
+                                      <td>{{ $row->Program }}</td>
+                                      <td>{{ $row->Status }}</td>
 
 
                                   </tr>
@@ -158,18 +182,21 @@
                               </tr>
 
                           @endif
-
-
                           </tbody>
                       </table>
 
                   </div>
-
+                  <div class="px-2">
+                    <p>{{$students->links()}}</p>
+                  </div>
               </div>
+
+              {{-- Queried Data Table --}}
+              
               <div class="card-body">
                 <div class="card-header bgsize-primary-4 white card-header">
                     <h4 class="card-title" style="padding-top: 10px">Location</h4>
-                    <p>Students are queried based on the State they take internship at.</p>
+                    <p>Students are ordered by the Post Code in each State.</p>
                   </div>
                 <div class=" card-content table-responsive">
   

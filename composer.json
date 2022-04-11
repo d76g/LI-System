@@ -13,8 +13,9 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "3.1",
-        "livewire/livewire": "^2.5",
-        "phpoffice/phpspreadsheet": "dev-NumberFormatMask-Helpers"
+        "livewire/livewire": "^2.10",
+        "phpoffice/phpspreadsheet": "dev-NumberFormatMask-Helpers",
+        "power-components/livewire-powergrid": "^2.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

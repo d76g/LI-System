@@ -38,11 +38,11 @@ Route::resources([
 //Upload Excel File
 Route::get('dashboard', [ExcelController::class, 'index']);
 Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');
-Route::get('dashboard',  [ExcelController::class, 'exportData'])->name('exportData');
+Route::get('student/export',  [ExcelController::class, 'exportData'])->name('exportData');
 Route::get('student/delete',  [ExcelController::class, 'deleteRecord'])->name('deleteData');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();
+    $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->orderBy('Nama')->Paginate(15);
     $location = DB::table('students')
         ->select(DB::raw('count(Negeri) as NumberOfStudents, Negeri'))
         ->groupBy('Negeri')

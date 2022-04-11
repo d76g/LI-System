@@ -28,9 +28,6 @@
                     <x-jet-nav-link href="{{ URL::to('documents') }}">
                         {{ __('Documents') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ URL::to('MultiPictures') }}">
-                        {{ __('Images') }}
-                    </x-jet-nav-link>
                 </div>
             </div>
 

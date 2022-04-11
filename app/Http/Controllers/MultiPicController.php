@@ -17,8 +17,8 @@ class MultiPicController extends Controller
      */
     public function index()
     {
-        $multiImages = MultiPictures::orderBy('id', 'desc')->paginate(4);
-        return view('documents.record.images', compact('multiImages'));
+        $multiImages = MultiPictures::orderBy('id', 'desc')->get();
+        return view('welcome', compact('multiImages'));
     }
 
     /**
