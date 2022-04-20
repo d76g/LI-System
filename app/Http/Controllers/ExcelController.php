@@ -43,6 +43,10 @@ class ExcelController extends Controller
      * @throws \PhpOffice\PhpSpreadsheet\Exception
 
      */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
 
     function importData(Request $request)
     {

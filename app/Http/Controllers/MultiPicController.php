@@ -15,10 +15,14 @@ class MultiPicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
     public function index()
     {
         $multiImages = MultiPictures::orderBy('id', 'desc')->get();
-        return view('welcome', compact('multiImages'));
+        return view('welcome.welcome', compact('multiImages'));
     }
 
     /**

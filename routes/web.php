@@ -22,9 +22,12 @@ use App\Http\Controllers\SupervisorsController;
 |
 */
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome.welcome');
 });
 
 Route::resources([
