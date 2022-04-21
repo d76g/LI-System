@@ -28,23 +28,47 @@ Route::get('/email/verify', function () {
 
 Route::get('/', function () {
     return view('welcome.welcome');
+})->name('welcome');
+
+Route::group(
+    ['middleware' => 'auth', 'verified', 'role:admin'],
+    function () {
+
+        Route::resources([
+            'supervisor' => SupervisorsController::class,
+            'company' => CompaniesController::class,
+            'documents' => DocumentsController::class,
+            'MultiPictures' => MultiPicController::class,
+
+        ]);
+    }
+);
+
+// Auth Company Controller
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function () {
+        Route::resource(name: 'company', controller: \App\Http\Controllers\Student\CompanyController::class);
+        Route::resource(name: 'home', controller: \App\Http\Controllers\Student\HomeController::class);
+        Route::resource(name: 'docs', controller: \App\Http\Controllers\Student\DocumentController::class);
+    });
+    Route::group(['middleware' => 'role:supervisor', 'prefix' => 'supervisors', 'as' => 'supervisors.'], function () {
+        Route::resource(name: 'company', controller: \App\Http\Controllers\Supervisor\CompanyController::class);
+        Route::resource(name: 'home', controller: \App\Http\Controllers\Supervisor\HomeController::class);
+    });
+    Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+        Route::resource(name: 'company', controller: \App\Http\Controllers\CompaniesController::class);
+    });
 });
 
-Route::resources([
-    'supervisor' => SupervisorsController::class,
-    'company' => CompaniesController::class,
-    'documents' => DocumentsController::class,
-    'MultiPictures' => MultiPicController::class,
-
-]);
-
 //Upload Excel File
-Route::get('dashboard', [ExcelController::class, 'index']);
-Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');
-Route::get('student/export',  [ExcelController::class, 'exportData'])->name('exportData');
-Route::get('student/delete',  [ExcelController::class, 'deleteRecord'])->name('deleteData');
+Route::group(['middleware' => 'auth', 'role:admin'], function () {
+    Route::get('dashboard', [ExcelController::class, 'index']);
+    Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');
+    Route::get('student/export',  [ExcelController::class, 'exportData'])->name('exportData');
+    Route::get('student/delete',  [ExcelController::class, 'deleteRecord'])->name('deleteData');
+});
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->get('/dashboard', function () {
     $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->orderBy('Nama')->Paginate(15);
     $location = DB::table('students')
         ->select(DB::raw('count(Negeri) as NumberOfStudents, Negeri'))

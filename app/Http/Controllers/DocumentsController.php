@@ -22,7 +22,7 @@ class DocumentsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified', 'role:admin']);
     }
     public function index()
     {

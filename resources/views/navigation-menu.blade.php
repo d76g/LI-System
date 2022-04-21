@@ -6,7 +6,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('welcome') }}">
                         
                         <img class="w-20" src="{{URL('/logo/FSKTM LOGO.png')}}" alt="FSKTM LOGO">
                             
@@ -15,19 +15,45 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
+                
+
+                    @can('admin')
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Students') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{URL::to('supervisor') }}">
                         {{ __('Supervisors') }}
                     </x-jet-nav-link>
-        
-                    <x-jet-nav-link href="{{ URL::to('company') }}">
-                        {{ __('Company') }}
+                    <x-jet-nav-link href="{{ route('company.index') }}" :active="request()->routeIs('company.record.index')">
+                        {{ __('Manage Company') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ URL::to('documents') }}">
                         {{ __('Documents') }}
                     </x-jet-nav-link>
+                    @endif
+
+                    @can('studentView')
+                        <x-jet-nav-link href="{{ route('student.home.index') }}" :active="request()->routeIs('student.home.index')">
+                            {{ __('Home') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('student.company.index') }}" :active="request()->routeIs('student.company.index')">
+                            {{ __('Company Review') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('student.docs.index') }}" :active="request()->routeIs('student.docs.index')">
+                            {{ __('Documents') }}
+                        </x-jet-nav-link>
+                        
+                    @endif
+
+                    @can('svView')
+                        <x-jet-nav-link href="{{ route('supervisors.home.index') }}" :active="request()->routeIs('supervisor.home.index')">
+                            {{ __('Home') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('supervisors.company.index') }}" :active="request()->routeIs('supervisor.company.index')">
+                            {{ __('Company Review') }}
+                        </x-jet-nav-link>
+                    @endif
+                    
                 </div>
             </div>
 
@@ -151,10 +177,19 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+        @can('admin')
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('Dash') }}
             </x-jet-responsive-nav-link>
+        @endif
+        
+        @can('studentView')
+                        <x-jet-nav-link href="{{ route('student.home.index') }}" :active="request()->routeIs('student.home.index')">
+                            {{ __('Home') }}
+                        </x-jet-nav-link>
+        @endif
         </div>
+        
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

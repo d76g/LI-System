@@ -6,14 +6,21 @@
             </div>
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+        <x-jet-validation-errors class="mb-2" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <div>
                 <h1 class="text-xl flex justify-center p-5">Register to LI FSKTM</h1>
             </div>
-            <div>
+            <div class="block mt-1 w-full">
+                <x-jet-label for="role_id" value="{{ __('Register as:') }}" />
+                <select name="role_id" x-model="role_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                    <option value="2">Student</option>
+                    <option value="3">Supervisor</option>
+                </select>
+            </div>
+            <div class="mt-4">
                 <x-jet-label for="name" value="{{ __('Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
