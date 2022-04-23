@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\DashboardImgController;
 use app\Models\User;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\DB;
@@ -79,3 +80,4 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->get('/dashboard',
 })->name('dashboard');
 
 Route::get('/allocate/{Negeri}', [ExcelController::class, 'viewAllocation'])->name('StudentAllocation');
+Route::get('/', [DashboardImgController::class, 'index'])->name('images');

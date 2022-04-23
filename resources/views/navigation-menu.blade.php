@@ -6,7 +6,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('welcome') }}">
+                    <a href="{{route('images')}}">
                         
                         <img class="w-20" src="{{URL('/logo/FSKTM LOGO.png')}}" alt="FSKTM LOGO">
                             
