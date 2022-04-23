@@ -3,6 +3,7 @@
     <div class="jumbotron">
         <h1 class="display-4">Hello,{{Auth::user()->name}}</h1>
         <p class="lead">Welcome to the LI FSKTM System.</p>
+        <p>You are logged in as {{Auth::user()->role->role}}</p>
         <hr class="my-4">
         <p>You can rate companies and download related documents for the intenship.</p>
         <p class="lead">
