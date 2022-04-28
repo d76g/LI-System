@@ -31,6 +31,9 @@ class Students extends Model
         'Tarikh_Mula_LI',
         'Tarikh_Tamat_LI',
         'Tarikh_Lapor_Diri',
+        'Penyelia_Fakulti_id',
+        'Program',
+        'Status',
     ];
 
     public function PenyeliaFakulti()

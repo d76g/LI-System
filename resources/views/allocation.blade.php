@@ -1,4 +1,7 @@
 <x-app-layout>
+    <body>
+        
+    
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Student-Supervisor Allocation
@@ -18,26 +21,26 @@
                         <div class="card-header bgsize-primary-4 white card-header">
                                 
                                 <h4 class="card-title" style="padding-top: 10px">Student List Table in - {{$states}}</h4>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select a supervisor</option>
+                <form class="row g-3 pt-3" action="" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('GET')
+                            <select class="form-select" name="svName" aria-label="Default select example">
+                                <option selected>Select a supervisor</option>
                                     @foreach ($superviros as $sv)
                                         <option value="{{$sv->id}}">{{$sv -> name}}</option>
-                                    @endforeach
-                                    
-                                </select>   
+                                    @endforeach 
+                            </select>   
                         </div>
                             
                         <div class="card-body">
-
-
                             <div class=" card-content table-responsive">
 
                                 <table id="student_t" class="table table-hover table-bordered text-nowrap" style="width:100%">
 
                                     <thead>
                                         
-                                        <th><input id="checkAll" type="checkbox" class="form-check-input check" /></th>
-                                        <th>Bil</th>
+                                        <th><input id="checkAllRows" type="checkbox" class="form-check-input check" /></th>
+                                        <th>#</th>
                                         <th>No_Matrik</th>
                                         <th>No_KP</th>
                                         <th>Nama</th>
@@ -62,12 +65,15 @@
                                     <tbody>
 
                                     @if(!empty($negeri) && $negeri->count())
-
+                                            @php
+                                            $rowNumber = 1;
+                                            @endphp
                                         @foreach($negeri as $row)
+                                        
                                             <tr>
                                                 
-                                                <td> <input class="form-check-input check" type="checkbox" value="" id="flexCheckDefault"></td>
-                                                <td>{{ $row->id }}</td>
+                                                <td> <input class="form-check-input check" type="checkbox" value="" id="CheckedRow" name="studentRecord"></td>
+                                                <td>{{$rowNumber++}}</td>
                                                 <td>{{ $row->No_Matrik }}</td>
                                                 <td>{{ $row->No_KP }}</td>
                                                 <td>{{ $row->Nama }}</td>
@@ -108,11 +114,22 @@
                                 
 
                             </div>
-                            <button type="button" class="m-2 btn btn-primary">Assign Supervisor</button>
+                            <button type="submit" class="m-2 btn btn-primary">Assign Supervisor</button>
                         </div>
+                    </form>
                 </div>
                 </div>
                 </div>
         </div>
     </div>
+    <script>
+
+    document.getElementById('checkAllRows').onclick = function() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (var checkbox of checkboxes) {
+             checkbox.checked = this.checked;
+            }
+        }
+    </script>
+    </body>
 </x-app-layout>

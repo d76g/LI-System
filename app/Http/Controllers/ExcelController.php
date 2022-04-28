@@ -5,7 +5,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supervisor;
+use App\Models\Students;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
@@ -18,8 +18,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
-use Students;
 
 class ExcelController extends Controller
 
@@ -50,9 +48,6 @@ class ExcelController extends Controller
 
     function importData(Request $request)
     {
-
-
-
 
         $this->validate($request, [
 
@@ -280,11 +275,12 @@ class ExcelController extends Controller
 
     public function viewAllocation($states)
     {
-        $student = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();
+        /* $student = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();*/
+
         $negeri = DB::table('students')
             ->where('Negeri', '=', $states)->orderBy('Poskod', 'desc')
             ->get();
         $superviros = DB::table('supervisors')->get();
-        return view('allocation', compact('student', 'negeri', 'superviros'))->with('states', $states);
+        return view('allocation', compact('negeri', 'superviros'))->with('states', $states);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Students extends Migration
+class CreateStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -34,14 +34,11 @@ class Students extends Migration
             $table->string('Tarikh_Mula_LI')->nullable();
             $table->string('Tarikh_Tamat_LI')->nullable();
             $table->string('Tarikh_Lapor_Diri')->nullable();
-            $table->string('Penyelia_Fakulti_id')->nullable();
-            // *$table->foreignId('Penyelia_Fakulti_id')->constrained('supervisors')->cascadeOnUpdate()->nullable();
+            $table->foreignId('Penyelia_Fakulti_id')->nullable()->constrained('supervisors')->cascadeOnUpdate();
             $table->string('Program');
             $table->text('Status')->nullable();
         });
     }
-
-
 
     /**
      * Reverse the migrations.
@@ -50,6 +47,6 @@ class Students extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('students');
     }
 }
