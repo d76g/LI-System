@@ -164,7 +164,7 @@
                                       <td>{{ $row->No_Tel_Syarikat }}</td>
                                       <td>{{ $row->No_Faks_Syarikat }}</td>
                                       <td>{{ $row->Tarikh_Mula_LI }}</td>
-                                      <td>{{ $row->Penyelia_Fakulti_id }}</td>
+                                      <td>{{ $row->supervisor->name ?? 'Not Assigned' }}</td>
                                       <td>{{ $row->Program }}</td>
                                       <td>{{ $row->Status }}</td>
 
@@ -212,14 +212,13 @@
                           </tr>
   
                         </thead>
-                          @foreach ( $location as $states)
+                        @foreach ( $location as $Negeri)
                       
-                          <tbody>
-                          <tr>
-                            <th scope="row">{{$states->Negeri}}</th>
-                            <td><a style="text-decoration: none" href="{{url('allocate/'.$states->Negeri)}}">{{$states->NumberOfStudents}}</a></td>
-                          @endforeach
-  
+                        <tbody>
+                        <tr>
+                            <th scope="row">{{$Negeri->Negeri}}</th>
+                            <td><a style="text-decoration: none" href="{{route('admin.allocation.show',$Negeri->Negeri)}}">{{$Negeri->NumberOfStudents ?? 'No Students to Assign'}}</a></td>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

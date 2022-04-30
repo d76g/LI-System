@@ -19,8 +19,8 @@ class Supervisor extends Model
         'email',
     ];
 
-    public function student()
+    public function Student()
     {
-        return $this->hasMany(Students::class);
+        return $this->hasMany(Students::class, 'id');
     }
 }

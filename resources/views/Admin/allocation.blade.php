@@ -8,25 +8,22 @@
         </h2>
     </x-slot>
     <div class="py-12">
-        
         <div class="container">
-
             <div class="row justify-content-left">
-
                 <div class="col-md-12">
-
                     <br/>
+
                     {{-- Student List Table --}}
                     <div class="card">
                         <div class="card-header bgsize-primary-4 white card-header">
                                 
-                                <h4 class="card-title" style="padding-top: 10px">Student List Table in - {{$states}}</h4>
+                        <h4 class="card-title" style="padding-top: 10px">Student List Table in {{$Negeri}}</h4>
                 <form class="row g-3 pt-3" action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('GET')
                             <select class="form-select" name="svName" aria-label="Default select example">
                                 <option selected>Select a supervisor</option>
-                                    @foreach ($superviros as $sv)
+                                    @foreach ($supvervisorsList as $sv)
                                         <option value="{{$sv->id}}">{{$sv -> name}}</option>
                                     @endforeach 
                             </select>   
@@ -56,7 +53,6 @@
                                         <th>No_Tel_Syarikat</th>
                                         <th>No_Faks_Syarikat</th>
                                         <th>Tarikh_Mula_LI</th>
-                                        <th>Penyelia_Fakulti</th>
                                         <th>Program</th>
                                         <th>Status</th>
                                     </thead>
@@ -64,11 +60,11 @@
 
                                     <tbody>
 
-                                    @if(!empty($negeri) && $negeri->count())
+                                    @if(!empty($state) && $state->count())
                                             @php
                                             $rowNumber = 1;
                                             @endphp
-                                        @foreach($negeri as $row)
+                                        @foreach($state as $row)
                                         
                                             <tr>
                                                 
@@ -90,7 +86,6 @@
                                                 <td>{{ $row->No_Tel_Syarikat }}</td>
                                                 <td>{{ $row->No_Faks_Syarikat }}</td>
                                                 <td>{{ $row->Tarikh_Mula_LI }}</td>
-                                                <td>{{ $row->Penyelia_Fakulti_id }}</td>
                                                 <td>{{ $row->Program }}</td>
                                                 <td>{{ $row->Status }}</td>
                                             </tr>
@@ -121,15 +116,19 @@
                 </div>
                 </div>
         </div>
+        {{-- Include the View of Allocated students in that State --}}
+        <div class="container">
+            @include('admin.studentWithSV')
+        </div>
     </div>
-    <script>
-
-    document.getElementById('checkAllRows').onclick = function() {
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            for (var checkbox of checkboxes) {
-             checkbox.checked = this.checked;
-            }
-        }
-    </script>
+            {{-- JS code to select all checkboxes --}}
+            <script>
+            document.getElementById('checkAllRows').onclick = function() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                    for (var checkbox of checkboxes) {
+                    checkbox.checked = this.checked;
+                    }
+                }
+            </script>
     </body>
 </x-app-layout>

@@ -1,16 +1,20 @@
 <?php
 
-use App\Http\Controllers\CompaniesController;
-use App\Http\Controllers\DashboardImgController;
 use app\Models\User;
 use Faker\Guesser\Name;
+use App\Models\Supervisor;
+use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelController;
 use League\CommonMark\Node\Block\Document;
-use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\MultiPicController;
+use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\DocumentsController;
+use App\Http\Controllers\AllocationController;
 use App\Http\Controllers\SupervisorsController;
+use App\Http\Controllers\DashboardImgController;
+use App\Models\Students;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,12 +44,12 @@ Route::group(
             'company' => CompaniesController::class,
             'documents' => DocumentsController::class,
             'MultiPictures' => MultiPicController::class,
-
         ]);
     }
 );
 
-// Auth Company Controller
+
+// Auth Controller
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\Student\CompanyController::class);
@@ -58,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\CompaniesController::class);
+        Route::resource('allocation', AllocationController::class, ['parameters' => ['allocation' => 'Negeri']]);
     });
 });
 
@@ -70,14 +75,15 @@ Route::group(['middleware' => 'auth', 'role:admin'], function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->get('/dashboard', function () {
-    $students = DB::table('students')->skip(0)->take(PHP_INT_MAX)->orderBy('Nama')->Paginate(15);
+    $students = Students::with('supervisor')->skip(0)->take(PHP_INT_MAX)->orderBy('Nama')->Paginate(15);
     $location = DB::table('students')
         ->select(DB::raw('count(Negeri) as NumberOfStudents, Negeri'))
+        ->whereNull('Supervisor_id')
         ->groupBy('Negeri')
         ->orderByDesc('NumberOfStudents')
         ->get();
-    return view('dashboard', compact('students', 'location'));
+    $supvervisor = Supervisor::with('student')->get();
+    return view('dashboard', compact('students', 'location', 'supvervisor'));
 })->name('dashboard');
 
-Route::get('/allocate/{Negeri}', [ExcelController::class, 'viewAllocation'])->name('StudentAllocation');
 Route::get('/', [DashboardImgController::class, 'index'])->name('images');

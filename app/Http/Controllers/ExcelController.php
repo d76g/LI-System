@@ -6,6 +6,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
+use App\Models\Supervisor;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
@@ -108,7 +109,7 @@ class ExcelController extends Controller
                     'Tarikh_Mula_LI' => $sheet->getCell('R' . $row)->getValue(),
                     'Tarikh_Tamat_LI' => $sheet->getCell('S' . $row)->getValue(),
                     'Tarikh_Lapor_Diri' => $sheet->getCell('T' . $row)->getValue(),
-                    'Penyelia_Fakulti_id' => $sheet->getCell('U' . $row)->getValue(),
+                    'Supervisor_id' => $sheet->getCell('U' . $row)->getValue(),
                     'Program' => $sheet->getCell('V' . $row)->getValue(),
                     'Status' => $sheet->getCell('W' . $row)->getValue(),
 
@@ -249,7 +250,7 @@ class ExcelController extends Controller
 
                 'Tarikh_Lapor_Diri' => $data_item->Tarikh_Lapor_Diri,
 
-                'Penyelia_Fakulti_id' => $data_item->Penyelia_Fakulti_id,
+                'Penyelia_Fakulti_id' => $data_item->Supervisor_id,
 
                 'Program' => $data_item->Program,
 
@@ -273,14 +274,15 @@ class ExcelController extends Controller
         }
     }
 
-    public function viewAllocation($states)
-    {
-        /* $student = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();*/
+    // public function viewAllocation($states)
+    // {
+    //     /* $student = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();*/
 
-        $negeri = DB::table('students')
-            ->where('Negeri', '=', $states)->orderBy('Poskod', 'desc')
-            ->get();
-        $superviros = DB::table('supervisors')->get();
-        return view('allocation', compact('negeri', 'superviros'))->with('states', $states);
-    }
+    //     $negeri = DB::table('students')
+    //         ->where('Negeri', '=', $states)
+    //         ->orderBy('Poskod', 'desc')
+    //         ->get();
+    //     $superviros = DB::table('supervisors')->get();
+    //     return view('allocation', compact('negeri', 'superviros'))->with('states', $states);
+    // }
 }

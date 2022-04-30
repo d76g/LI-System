@@ -34,9 +34,10 @@ class CreateStudentsTable extends Migration
             $table->string('Tarikh_Mula_LI')->nullable();
             $table->string('Tarikh_Tamat_LI')->nullable();
             $table->string('Tarikh_Lapor_Diri')->nullable();
-            $table->foreignId('Penyelia_Fakulti_id')->nullable()->constrained('supervisors')->cascadeOnUpdate();
+            $table->foreignId('Supervisor_id')->nullable()->constrained('supervisors')->cascadeOnUpdate();
             $table->string('Program');
             $table->text('Status')->nullable();
+            $table->timestamps();
         });
     }
 
