@@ -62,7 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\CompaniesController::class);
-        Route::resource('allocation', AllocationController::class, ['parameters' => ['allocation' => 'Negeri']]);
+        Route::resource('allocation', AllocationController::class, ['parameters' => ['allocation' => '']]);
+        Route::get('/allocate/{Negeri}', [ExcelController::class, 'viewAllocation'])->name('StudentAllocation');
     });
 });
 

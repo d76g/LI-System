@@ -274,15 +274,22 @@ class ExcelController extends Controller
         }
     }
 
-    // public function viewAllocation($states)
-    // {
-    //     /* $student = DB::table('students')->skip(0)->take(PHP_INT_MAX)->get();*/
+    public function viewAllocation(Request $request)
+    {
+        $supvervisorsList = Supervisor::all();
+        $Negeri = $request->Negeri;
+        $state = Students::where('Negeri', '=', $Negeri)
+            ->whereNull('Supervisor_id')
+            ->orderBy('Poskod', 'desc')
+            ->get();
 
-    //     $negeri = DB::table('students')
-    //         ->where('Negeri', '=', $states)
-    //         ->orderBy('Poskod', 'desc')
-    //         ->get();
-    //     $superviros = DB::table('supervisors')->get();
-    //     return view('allocation', compact('negeri', 'superviros'))->with('states', $states);
-    // }
+        $allocatedStudents = Students::where('Negeri', '=', $Negeri)
+            ->with('supervisor')
+            ->whereNotNull('Supervisor_id')
+            ->orderBy('Poskod', 'desc')
+            ->get();
+
+
+        return view('admin.allocation', compact('state', 'Negeri', 'allocatedStudents', 'supvervisorsList'));
+    }
 }

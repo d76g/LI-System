@@ -217,7 +217,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">{{$Negeri->Negeri}}</th>
-                            <td><a style="text-decoration: none" href="{{route('admin.allocation.show',$Negeri->Negeri)}}">{{$Negeri->NumberOfStudents ?? 'No Students to Assign'}}</a></td>
+                            <td><a style="text-decoration: none" href="{{route('admin.StudentAllocation',$Negeri->Negeri)}}">{{$Negeri->NumberOfStudents ?? 'No Students to Assign'}}</a></td>
                         @endforeach
                         </tbody>
                     </table>

@@ -37,9 +37,8 @@ class AllocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -50,19 +49,6 @@ class AllocationController extends Controller
      */
     public function show(Request $request)
     {
-        $Negeri = $request->Negeri;
-        $state = Students::where('Negeri', '=', $Negeri)
-            ->whereNull('Supervisor_id')
-            ->orderBy('Poskod', 'desc')
-            ->get();
-        $allocatedStudents = Students::where('Negeri', '=', $Negeri)
-            ->with('supervisor')
-            ->whereNotNull('Supervisor_id')
-            ->orderBy('Poskod', 'desc')
-            ->get();
-        // dd($allocatedStudents);
-        $supvervisorsList = Supervisor::all();
-        return view('admin.allocation', compact('state', 'Negeri', 'allocatedStudents', 'supvervisorsList'));
     }
 
     /**
@@ -71,9 +57,15 @@ class AllocationController extends Controller
      * @param  \App\Models\Allocation  $allocation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Allocation $allocation)
+    public function edit(Allocation $allocation, Request $request)
     {
-        //
+        $supvervisorsList = Supervisor::all();
+        $Negeri = $request->Negeri;
+        $state = Students::where('Negeri', '=', $Negeri)
+            ->whereNull('Supervisor_id')
+            ->orderBy('Poskod', 'desc')
+            ->get();
+        return view('admin.allocation', compact('state', 'Negeri', 'supvervisorsList'));
     }
 
     /**
@@ -83,9 +75,18 @@ class AllocationController extends Controller
      * @param  \App\Models\Allocation  $allocation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Allocation $allocation)
+    public function update(Request $request, Students $stid, Supervisor $svid)
     {
-        //
+        $request->validate([
+            'svName' => 'required',
+            'studentRecord' => 'required'
+        ]);
+
+        $svID = Supervisor::find($svid);
+        dd($svID);
+
+
+        return Redirect()->route('admin.allocation.show')->with('success', 'Student Record Updated Successfully');
     }
 
     /**

@@ -18,13 +18,13 @@
                         <div class="card-header bgsize-primary-4 white card-header">
                                 
                         <h4 class="card-title" style="padding-top: 10px">Student List Table in {{$Negeri}}</h4>
-                <form class="row g-3 pt-3" action="" method="POST" enctype="multipart/form-data">
+                <form class="row g-3 pt-3" action="{{route('admin.allocation.update',$supvervisorsList->svid)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('GET')
                             <select class="form-select" name="svName" aria-label="Default select example">
                                 <option selected>Select a supervisor</option>
                                     @foreach ($supvervisorsList as $sv)
-                                        <option value="{{$sv->id}}">{{$sv -> name}}</option>
+                                        <option value="{{$sv->id}}">{{$sv->name}}</option>
                                     @endforeach 
                             </select>   
                         </div>
