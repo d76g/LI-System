@@ -8,6 +8,8 @@ use App\Models\Supervisor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
+use Carbon\Carbon;
+
 
 class AllocationController extends Controller
 {
@@ -16,9 +18,9 @@ class AllocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -59,13 +61,7 @@ class AllocationController extends Controller
      */
     public function edit(Allocation $allocation, Request $request)
     {
-        $supvervisorsList = Supervisor::all();
-        $Negeri = $request->Negeri;
-        $state = Students::where('Negeri', '=', $Negeri)
-            ->whereNull('Supervisor_id')
-            ->orderBy('Poskod', 'desc')
-            ->get();
-        return view('admin.allocation', compact('state', 'Negeri', 'supvervisorsList'));
+        //    
     }
 
     /**
@@ -75,18 +71,18 @@ class AllocationController extends Controller
      * @param  \App\Models\Allocation  $allocation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Students $stid, Supervisor $svid)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'svName' => 'required',
-            'studentRecord' => 'required'
+            'status' => 'required'
         ]);
 
-        $svID = Supervisor::find($svid);
-        dd($svID);
-
-
-        return Redirect()->route('admin.allocation.show')->with('success', 'Student Record Updated Successfully');
+        Students::find($id)->update([
+            'supervisor_id' => $request->svName,
+            'updated_at' => Carbon::now()
+        ]);
+        return Redirect()->route('admin.StudentAllocation')->with('success', 'Student Record Updated Successfully');
     }
 
     /**

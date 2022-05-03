@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Comment;
 use App\Models\company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -73,7 +74,17 @@ class CompaniesController extends Controller
      */
     public function show($id)
     {
-        //
+        $companyData = company::find($id);
+        $companyComment = Comment::with('Company', 'User')
+            ->where('Company_id', '=', $id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $lastCommentDate = Comment::latest('created_at')
+            ->where('Company_id', '=', $id)
+            ->first();
+
+        return view('Comments.index', compact('companyComment', 'companyData', 'lastCommentDate'));
     }
 
     /**

@@ -12,6 +12,7 @@ use App\Http\Controllers\MultiPicController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\AllocationController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SupervisorsController;
 use App\Http\Controllers\DashboardImgController;
 use App\Models\Students;
@@ -44,9 +45,12 @@ Route::group(
             'company' => CompaniesController::class,
             'documents' => DocumentsController::class,
             'MultiPictures' => MultiPicController::class,
+
         ]);
     }
 );
+
+Route::resource('comment', CommentController::class);
 
 
 // Auth Controller
@@ -62,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\CompaniesController::class);
-        Route::resource('allocation', AllocationController::class, ['parameters' => ['allocation' => '']]);
+        Route::resource('allocation', AllocationController::class);
         Route::get('/allocate/{Negeri}', [ExcelController::class, 'viewAllocation'])->name('StudentAllocation');
     });
 });

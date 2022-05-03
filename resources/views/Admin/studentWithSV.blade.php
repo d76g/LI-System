@@ -11,7 +11,6 @@
 
                     <thead>
                         
-                        <th><input id="checkAllRows" type="checkbox" class="form-check-input check" /></th>
                         <th>#</th>
                         <th>No_Matrik</th>
                         <th>No_KP</th>
@@ -43,7 +42,6 @@
                         @foreach($allocatedStudents as $row)
                             <tr>
                                 
-                                <td> <input class="form-check-input check" type="checkbox" value="" id="CheckedRow" name="studentRecord"></td>
                                 <td>{{$rowNumber++}}</td>
                                 <td>{{ $row->No_Matrik }}</td>
                                 <td>{{ $row->No_KP }}</td>

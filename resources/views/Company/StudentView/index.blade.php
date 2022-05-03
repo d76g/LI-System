@@ -22,7 +22,12 @@
                                 </div>
                                 <h6>{{'Email: ' . $data->email}}</h6>
                                 <div class="d-flex justify-content-between install mt-3"><span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span>
-                                    <span class="text-primary">Reviews<i class="fa fa-angle-right"></i></span></div>
+                                    <span class="text-primary">
+                                        <a href="{{route('comment.show',$data->id)}}">Reviews
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </span>
+                                    </div>
                             </div>
                         </div>
                     @endforeach

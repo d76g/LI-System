@@ -276,7 +276,7 @@ class ExcelController extends Controller
 
     public function viewAllocation(Request $request)
     {
-        $supvervisorsList = Supervisor::all();
+        $supvervisorsList = Supervisor::all('id', 'name');
         $Negeri = $request->Negeri;
         $state = Students::where('Negeri', '=', $Negeri)
             ->whereNull('Supervisor_id')

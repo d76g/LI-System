@@ -16,4 +16,9 @@ class company extends Model
         'phone_number',
         'image_path',
     ];
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'id');
+    }
 }

@@ -135,8 +135,12 @@
                                 <div class="d-flex flex-row mb-3"><img src="{{Storage::URL($data->image_path)}}" width="70" alt="Company Image">
                                     <div class="d-flex flex-column ml-2"><span>{{ $data->name }}</span><span class="text-black-50">{{ $data->eco_sector }}</span><span class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></div>
                                 </div>
+
                                 <h6>{{'Email: ' . $data->email}}</h6>
-                                <div class="d-flex justify-content-between install mt-3"><span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div>
+
+                                <div class="d-flex justify-content-between install mt-3">
+                                    <span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span>
+                                    <span class="text-primary"><a href="{{route('comment.show',$data->id)}}">View&nbsp;<i class="fa fa-angle-right"></i></a></span></div>
                             </div>
                         </div>
                     @endforeach

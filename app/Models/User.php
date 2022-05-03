@@ -65,4 +65,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo('App\Models\Role');
     }
+
+    public function Comment()
+    {
+        return $this->hasOne(Comment::class, 'id');
+    }
 }

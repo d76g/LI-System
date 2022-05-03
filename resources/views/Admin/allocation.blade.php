@@ -18,10 +18,10 @@
                         <div class="card-header bgsize-primary-4 white card-header">
                                 
                         <h4 class="card-title" style="padding-top: 10px">Student List Table in {{$Negeri}}</h4>
-                <form class="row g-3 pt-3" action="{{route('admin.allocation.update',$supvervisorsList->svid)}}" method="POST" enctype="multipart/form-data">
+                <form class="row g-3 pt-3" action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('GET')
-                            <select class="form-select" name="svName" aria-label="Default select example">
+                            <select class="form-select" name="svName" aria-label="Default select example"> 
                                 <option selected>Select a supervisor</option>
                                     @foreach ($supvervisorsList as $sv)
                                         <option value="{{$sv->id}}">{{$sv->name}}</option>
@@ -68,7 +68,7 @@
                                         
                                             <tr>
                                                 
-                                                <td> <input class="form-check-input check" type="checkbox" value="" id="CheckedRow" name="studentRecord"></td>
+                                                <td> <input class="form-check-input check" type="checkbox" value="{{$row->id}}" id="CheckedRow" name="ids"></td>
                                                 <td>{{$rowNumber++}}</td>
                                                 <td>{{ $row->No_Matrik }}</td>
                                                 <td>{{ $row->No_KP }}</td>
@@ -109,7 +109,7 @@
                                 
 
                             </div>
-                            <button type="submit" class="m-2 btn btn-primary">Assign Supervisor</button>
+                            <button type="submit" class="m-2 btn btn-primary" id="AssignSupervisors">Assign Supervisor</button>
                         </div>
                     </form>
                 </div>
@@ -117,18 +117,19 @@
                 </div>
         </div>
         {{-- Include the View of Allocated students in that State --}}
-        <div class="container">
+        {{-- <div class="container">
             @include('admin.studentWithSV')
-        </div>
+        </div> --}}
     </div>
             {{-- JS code to select all checkboxes --}}
             <script>
             document.getElementById('checkAllRows').onclick = function() {
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                var checkboxes = document.querySelectorAll('input[id="CheckedRow"]');
                     for (var checkbox of checkboxes) {
                     checkbox.checked = this.checked;
                     }
                 }
             </script>
+
     </body>
 </x-app-layout>
