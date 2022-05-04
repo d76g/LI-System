@@ -229,16 +229,16 @@
 
       </div>
     </div>
-       {{-- <script>
+       <script>
            function delConfi() {
                 let message = "Are sure you want to delete?";
-                if (confirm(message) == false) {
+                if (confirm(message) == true) {
                     message = session('fail');
                 } else {
                     message = session('success');
                     document.getElementById("sessionSuccess").innerHTML = message;
                 }
             }
-       </script> --}}
+       </script>
     </div>
 </x-app-layout>

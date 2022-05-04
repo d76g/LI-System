@@ -289,7 +289,6 @@ class ExcelController extends Controller
             ->orderBy('Poskod', 'desc')
             ->get();
 
-
         return view('admin.allocation', compact('state', 'Negeri', 'allocatedStudents', 'supvervisorsList'));
     }
 }

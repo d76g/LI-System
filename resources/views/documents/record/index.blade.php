@@ -1,4 +1,5 @@
 <x-app-layout>
+  <link rel="stylesheet" href="{{URL::asset('css/hovereffect.css')}}">
   <body>
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> --}}
         <!-- Page Content -->
@@ -64,7 +65,7 @@
     <div class="row">
         <div class="container">
           <h3 class="float-start">{{$data->title}}</h3>
-          <p class=" text-secondary float-end p-2">{{ $data->created_at->diffForHumans()}}</p>
+          <p class=" text-secondary float-end p-2">{{ $data->created_at->format('F j, Y')}}</p>
         </div>
         <p>{{$data->content}}</p>
         <div class="col">
@@ -128,15 +129,31 @@
       <hr>
     <div class="container">
         <div class="row d-flex flex-wrap align-items-center" data-toggle="modal" data-target="#lightbox">
+          @if(!empty($multiImages) && $multiImages->count())
 
-          @foreach ($multiImages as $img)
-            <div class="col-12 col-md-6 col-lg-3"> 
-              <img src="{{Storage::URL($img->images_path)}}" data-target="#indicators" data-slide-to="0" alt="eLI Image" /> 
-            </div> 
-          @endforeach
-          {{-- <div class="px-2">
+            @foreach ($multiImages as $img)
+              <div class="col-12 col-md-6 col-lg-3 hovereffect"> 
+                
+                <img class="img-responsive" src="{{Storage::URL($img->images_path)}}" data-target="#indicators" data-slide-to="0" alt="eLI Image" /> 
+                <form action="{{ route('MultiPictures.destroy',$img->id) }}" method="POST">
+                  @method('DELETE')
+                  @csrf
+                    <div class="overlay">
+                        <button type="submit" class="btn"><i class="fas fa-trash text-white" aria-hidden="true"></i></button> 
+                    </div>
+                </form>
+              </div> 
+            @endforeach
+          <div class="px-2">
               <p>{{$multiImages->links()}}</p>
-          </div> --}}
+          </div>
+          @else
+          <div class="card mb-4">
+            <div class="card-body text-secondary">
+              No Uploaded Images.
+            </div>
+          </div>
+            @endif
         </div>
     </div>
 </div>

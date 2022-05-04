@@ -1,4 +1,5 @@
 <x-app-layout>
+    
     <body>
         
     
@@ -14,13 +15,16 @@
                     <br/>
 
                     {{-- Student List Table --}}
+                    <button type="button" class="d-flex flex-column btn btn-danger mb-2 float-left col-md-1">
+                        <a href="{{route('dashboard')}}" style="text-decoration-line: none" class="text-white ml-3"><i class="fa-solid fa-arrow-left-long p-1">
+                            </i>Back</a>
+                    </button>
+                    @if(!empty($state) && $state->count())
                     <div class="card">
                         <div class="card-header bgsize-primary-4 white card-header">
-                                
                         <h4 class="card-title" style="padding-top: 10px">Student List Table in {{$Negeri}}</h4>
-                <form class="row g-3 pt-3" action="" method="POST" enctype="multipart/form-data">
+                <form class="row g-3 pt-3" action="{{route('admin.allocation.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('GET')
                             <select class="form-select" name="svName" aria-label="Default select example"> 
                                 <option selected>Select a supervisor</option>
                                     @foreach ($supvervisorsList as $sv)
@@ -60,7 +64,7 @@
 
                                     <tbody>
 
-                                    @if(!empty($state) && $state->count())
+                                    
                                             @php
                                             $rowNumber = 1;
                                             @endphp
@@ -68,7 +72,7 @@
                                         
                                             <tr>
                                                 
-                                                <td> <input class="form-check-input check" type="checkbox" value="{{$row->id}}" id="CheckedRow" name="ids"></td>
+                                                <td> <input class="form-check-input check" type="checkbox" value="{{$row->id}}" id="CheckedRow" name="ids[]"></td>
                                                 <td>{{$rowNumber++}}</td>
                                                 <td>{{ $row->No_Matrik }}</td>
                                                 <td>{{ $row->No_KP }}</td>
@@ -91,35 +95,33 @@
                                             </tr>
 
                                         @endforeach
-
-                                    @else
-
-                                        <tr>
-
-                                            <td colspan="10">There are no data.</td>
-
-                                        </tr>
-
-                                    @endif
-
                                         
                                     </tbody>
-                                    
                                 </table>
-                                
-
                             </div>
-                            <button type="submit" class="m-2 btn btn-primary" id="AssignSupervisors">Assign Supervisor</button>
+                            <button type="submit" class="m-2 btn btn-primary" id="AssignSupervisors"><i class="fa-solid fa-person-circle-plus p-1 fa-lg"></i>Assign Supervisor</button>
                         </div>
+                         
                     </form>
                 </div>
+                @else
+                <div class="card">
+                <div class="card-body container mt-1 bgsize-primary-5 d-flex flex-row">
+                    <div class=" card-content table-responsive">
+                        <p class="h4">All Students are assigne to Supervisors</p>
+                        <p class="text-secondary">Check the table below</p>
+                    </div>
+                </div>
+                </div>
+
+                @endif
                 </div>
                 </div>
         </div>
         {{-- Include the View of Allocated students in that State --}}
-        {{-- <div class="container">
+        <div class="container">
             @include('admin.studentWithSV')
-        </div> --}}
+        </div>
     </div>
             {{-- JS code to select all checkboxes --}}
             <script>

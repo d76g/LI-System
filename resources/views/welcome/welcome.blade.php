@@ -95,11 +95,11 @@
         </div>
         {{-- Images Slider --}}
         <section id="images" class="overflow-hidden h-full text-gray-700">
-          <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
+          <div class="container px-5 py-3 mx-auto lg:pt-12 lg:px-32">
             <div class="flex flex-wrap -m-1 md:-m-2">
               @foreach ($images as $img)
               <div class="flex flex-wrap w-1/3">
-                <div class="w-full p-1 md:p-2">
+                <div class="w-full p-1 md:p-2 mb-4">
                     <img class="block object-cover object-center rounded-lg" src="{{Storage::URL($img->images_path)}}" data-target="#indicators" data-slide-to="0" alt="eLI Image" /> 
                 </div>
               </div>

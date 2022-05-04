@@ -21,8 +21,7 @@ class MultiPicController extends Controller
     }
     public function index()
     {
-        $multiImages = MultiPictures::orderBy('id', 'desc')->get();
-        return view('welcome.welcome', compact('multiImages'));
+        //
     }
 
     /**
@@ -86,8 +85,7 @@ class MultiPicController extends Controller
      */
     public function edit($id)
     {
-        $multiImg = MultiPictures::find($id);
-        return view('documents.record.imageEdit')->with('multiImg', $multiImg);
+        //
     }
 
     /**
@@ -110,6 +108,12 @@ class MultiPicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $File = MultiPictures::find($id);
+        $oldImage = $File->images_path;
+        Storage::disk('public')->delete($oldImage);
+
+        $image = MultiPictures::find($id);
+        $image->delete();
+        return Redirect()->back()->with('success', 'Image Deleted Successfully');
     }
 }

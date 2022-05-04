@@ -27,7 +27,7 @@ class DocumentsController extends Controller
     public function index()
     {
         $documents = documents::orderBy('id', 'desc')->paginate(10);
-        $multiImages = MultiPictures::orderBy('id', 'desc')->get();
+        $multiImages = MultiPictures::orderBy('id', 'desc')->paginate(8);
         return view('documents.record.index', compact('documents', 'multiImages'));
     }
 

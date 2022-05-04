@@ -39,8 +39,21 @@ class AllocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
+        $request->validate([
+            'svName' => 'required',
+            'ids' => 'required'
+        ]);
+
+
+
+        foreach ($request->input('ids') as $student) {
+            $sv = Students::find($student);
+            $sv->supervisor_id = request('svName');
+            $sv->save();
+        }
+        return back();
     }
 
     /**
@@ -51,6 +64,7 @@ class AllocationController extends Controller
      */
     public function show(Request $request)
     {
+        //
     }
 
     /**
@@ -71,18 +85,18 @@ class AllocationController extends Controller
      * @param  \App\Models\Allocation  $allocation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
-            'svName' => 'required',
-            'status' => 'required'
+            'ids' => 'required'
         ]);
 
-        Students::find($id)->update([
-            'supervisor_id' => $request->svName,
-            'updated_at' => Carbon::now()
-        ]);
-        return Redirect()->route('admin.StudentAllocation')->with('success', 'Student Record Updated Successfully');
+        foreach ($request->input('ids') as $student) {
+            $sv = Students::find($student);
+            $sv->supervisor_id = NULL;
+            $sv->save();
+        }
+        return back();
     }
 
     /**
