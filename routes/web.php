@@ -49,8 +49,9 @@ Route::group(
         ]);
     }
 );
-
-Route::resource('comment', CommentController::class);
+Route::group(['middleware' => 'auth', 'verified'], function () {
+    Route::resource('comment', CommentController::class);
+});
 
 
 // Auth Controller

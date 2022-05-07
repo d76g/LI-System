@@ -74,17 +74,17 @@ class CompaniesController extends Controller
      */
     public function show($id)
     {
-        $companyData = company::find($id);
-        $companyComment = Comment::with('Company', 'User')
-            ->where('Company_id', '=', $id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // $companyData = company::find($id);
+        // $companyComment = Comment::with('Company', 'User')
+        //     ->where('Company_id', '=', $id)
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
 
-        $lastCommentDate = Comment::latest('created_at')
-            ->where('Company_id', '=', $id)
-            ->first();
+        // $lastCommentDate = Comment::latest('created_at')
+        //     ->where('Company_id', '=', $id)
+        //     ->first();
 
-        return view('Comments.index', compact('companyComment', 'companyData', 'lastCommentDate'));
+        // return view('Comments.index', compact('companyComment', 'companyData', 'lastCommentDate'));
     }
 
     /**

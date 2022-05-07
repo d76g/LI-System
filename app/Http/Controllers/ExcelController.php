@@ -199,10 +199,8 @@ class ExcelController extends Controller
     function exportData()
     {
 
-        $data = DB::table('students')->orderBy('Nama', 'ASC')->get();
-
-
-
+        $data = Students::with('supervisor')
+            ->orderBy('Nama', 'ASC')->get();
 
         $data_array[] = array("id", "No_Matrik", "No_KP", "Nama", "Poskod", "Bandar", "Negeri", "Kod_Prog", "Tahun_Pengajian", "No_Tel_Pelajar", "Nama_Syarikat_LI", "Sektor", "Sektor_Ekonomi", "Alamat_Syarikat", "Pegawai", "No_Tel_Syarikat", "No_Faks_Syarikat", "Tarikh_Mula_LI", "Tarikh_Tamat_LI", "Tarikh_Lapor_Diri", "Penyelia_Fakulti_id", "Program", "Status");
 
@@ -250,7 +248,7 @@ class ExcelController extends Controller
 
                 'Tarikh_Lapor_Diri' => $data_item->Tarikh_Lapor_Diri,
 
-                'Penyelia_Fakulti_id' => $data_item->Supervisor_id,
+                'Penyelia_Fakulti' => $data_item->supervisor->name ?? 'Not Assigned',
 
                 'Program' => $data_item->Program,
 

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\comment;
 use App\Models\company;
-use App\Models\User;
-use Faker\Provider\ar_JO\Company as Ar_JOCompany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Faker\Provider\ar_JO\Company as Ar_JOCompany;
+use Illuminate\Support\Facades\Session as Session;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments;
 
 class CommentController extends Controller
 {
@@ -21,6 +24,7 @@ class CommentController extends Controller
      */
     public function index()
     {
+        //
     }
 
     /**
@@ -42,7 +46,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'comment' => 'required',
+            'comment' => 'required|min:10',
         ]);
 
         if (!Comment::where('User_id', auth()->user()->id)->exists()) {
@@ -53,7 +57,7 @@ class CommentController extends Controller
             $newComment->save();
             return back();
         } else {
-            return Redirect()->back()->with('success', ' You can comment ONLY one Comment');
+            return Redirect()->back()->with('success', ' You can comment ONLY one Comment for one Company, delete the comment to comment again.');
         }
     }
 
@@ -74,7 +78,7 @@ class CommentController extends Controller
         $lastCommentDate = Comment::latest('created_at')
             ->where('Company_id', '=', $id)
             ->first();
-
+        Session::put('company_url', request()->fullUrl());
         return view('Comments.index', compact('companyComment', 'companyData', 'lastCommentDate'));
     }
 
@@ -84,9 +88,10 @@ class CommentController extends Controller
      * @param  \App\Models\comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(comment $comment)
+    public function edit($id)
     {
-        //
+        $commentContent = Comment::find($id);
+        return view('comments.edit', compact('commentContent'));
     }
 
     /**
@@ -96,9 +101,16 @@ class CommentController extends Controller
      * @param  \App\Models\comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, comment $comment)
+    public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'comment' => 'required|min:10',
+        ]);
+        comment::find($id)->update([
+            'content' => request('comment'),
+            'updated_at' => Carbon::now()
+        ]);
+        return redirect(session('company_url'))->with('status', ' Comment Updated');
     }
 
     /**
@@ -107,8 +119,24 @@ class CommentController extends Controller
      * @param  \App\Models\comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(comment $comment)
+    public function destroy($id)
     {
-        //
+        if (auth()->user()->role_id != 1) {
+            $user_id = auth()->user()->id;
+            $comment = comment::where('id', $id)
+                ->where('User_id', $user_id)
+                ->first();
+
+            if (!is_null($comment)) {
+                $comment->delete();
+                return Redirect()->back()->with('success', ' Comment Deleted Successfully.');
+            } else {
+                return Redirect()->back()->with('success', ' You can delete your own comment ONLY.');
+            }
+        } else {
+            $deleteComment = comment::find($id);
+            $deleteComment->delete();
+            return Redirect()->back()->with('success', ' Admin, you deleted a Comment.');
+        }
     }
 }

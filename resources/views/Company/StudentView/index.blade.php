@@ -15,7 +15,7 @@
                 @if (count($company) > 0)
                 
                     @foreach ($company as $data)
-                        <div class="col-md-4">
+                        <div class="col-md-4 mt-1 mb-3">
                             <div class="card p-3">
                                 <div class="d-flex flex-row mb-3"><img src="{{Storage::URL($data->image_path)}}" width="70" alt="Company Image">
                                     <div class="d-flex flex-column ml-2"><span>{{ $data->name }}</span><span class="text-black-50">{{ $data->eco_sector }}</span><span class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></div>

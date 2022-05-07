@@ -11,7 +11,7 @@
             <div class="d-flex flex-column col-md-12">
                 
                 @include('Comments.partials.goBack')
-                <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4" style="height: 150px">
+                <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4 rounded" style="height: 150px">
                     <div class="profile-image"><img class="rounded-circle" src="{{Storage::URL($companyData->image_path)}}" width="100" alt="Company Image">
                     </div>
 
@@ -20,7 +20,10 @@
                             <h3>{{$companyData->name}}</h3><span class="ml-2 text-secondary">{{$companyData->sector}}</span>
                         </div>
                             
-                        <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="bdge mr-1">video</span><span class="mr-2 comments">13 comments&nbsp;</span><span class="mr-2 dot"></span>
+                        <div class="d-flex flex-row align-items-center align-content-center post-title">
+                            <span class="bdge mr-1">Number of Comments</span>
+                            <span class="mr-2 text-secondary">2</span>
+                            <span class="mr-2 dot"></span>
 
                             @if ( @isset($lastCommentDate) )
                             <span> Last comment on <span class="text-secondary"> {{$lastCommentDate->created_at->format('F j, Y')}}</span></span>
@@ -31,7 +34,7 @@
                     </div>
                 </div>
                 
-                <div class="bg-white pt-4 px-4">
+                <div class="bg-white mt-4 mb-4 p-3 px-2 rounded">
                 @if (count($companyComment) < 0)
                 
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4">
@@ -52,25 +55,31 @@
                     @if (session('success'))
                             @include('comments.partials.index')
                     @endif
-                    <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                    <div class="d-flex flex-row add-comment-section py-2 px-4">
                         <img class="img-fluid img-responsive rounded-circle mr-2" src="{{Auth::user()->profile_photo_url}}" width="38" alt="Avatar">
-                        <input type="text" class="form-control mr-3" name="comment" placeholder="Add comment">
+                        <input type="text" class="form-control mr-3" name="comment" placeholder="Write a comment about this company">
                         <input type="hidden" name="Company_id" id="post_id" value="{{ $companyData->id }}" />
                         <button class="btn btn-primary" type="submit">Comment</button>
                     </div>
+                    @error('comment')
+                            <span class="text-danger">{{'*'.$message}}</span>
+                    @enderror
                     <hr>
                     </form>
 
                     @foreach ($companyComment as $comment)
-                        <div
-                            class="commented-section mt-4">
-                            <div class="d-flex flex-row align-items-center commented-user">
+                        <div class="commented-section px-4 py-2">
+                            <div class="d-flex flex-row align-items-center">
                                 <img class="img-fluid img-responsive rounded-circle mr-2" src="{{$comment->User->profile_photo_url}}" width="38" alt="Avatar">
                                 <h5 class="mr-2 text-secondary">{{$comment->User->name}}</h5>
                                 <span class="mb-1 ml-2"> by {{$comment->user->role->role}}</span>
                                 <span class="dot mb-1"></span>
+                                @if ($comment->updated_at == NULL)
                                 <span class="mb-1 ml-2">{{$comment->created_at->format('F j, Y, g:i a')}}</span>
-                                
+                                @else
+                                <span class="mb-1 ml-2">{{$comment->updated_at->format('F j, Y, g:i a')}}</span>
+                                @endif
+                                @include('comments.partials.dropdown')
                             </div>
                             <div class="comment-text-sm rounded mt-2 ml-4 p-3" style="background-color:rgb(243 244 246);">
                                 <span>{{$comment->content}}</span>
