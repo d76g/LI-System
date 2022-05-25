@@ -23,4 +23,12 @@ class Supervisor extends Model
     {
         return $this->hasMany(Students::class, 'id');
     }
+    public function scopeFilter($query)
+    {
+        if ($search = request('search')) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('staff_id', 'LIKE', "%{$search}%");
+        }
+        return $query;
+    }
 }

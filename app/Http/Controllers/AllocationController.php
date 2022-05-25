@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Allocation;
+use Carbon\Carbon;
 use App\Models\Students;
+use App\Models\Allocation;
 use App\Models\Supervisor;
 use Illuminate\Http\Request;
+use App\Mail\StudentAssigned;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
-use Carbon\Carbon;
-
 
 class AllocationController extends Controller
 {
@@ -41,18 +42,26 @@ class AllocationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'svName' => 'required',
-            'ids' => 'required'
-        ]);
-
-
+        $request->validate(
+            [
+                'svName' => 'required',
+                'ids' => 'required',
+            ],
+            [
+                'svName.required' => 'Please Select a Supervisor.',
+                'ids.required' => 'Please Select a Student.'
+            ]
+        );
 
         foreach ($request->input('ids') as $student) {
             $sv = Students::find($student);
             $sv->supervisor_id = request('svName');
             $sv->save();
         }
+
+        $svEmail = Supervisor::where('id', '=', $request->svName)->get('email');
+        Mail::to($svEmail)->send(new StudentAssigned());
+
         return back();
     }
 

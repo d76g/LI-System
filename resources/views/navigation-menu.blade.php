@@ -18,7 +18,7 @@
                 
 
                     @can('admin')
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Students') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{URL::to('supervisor') }}">
@@ -48,6 +48,9 @@
                     @can('svView')
                         <x-jet-nav-link href="{{ route('supervisors.home.index') }}" :active="request()->routeIs('supervisor.home.index')">
                             {{ __('Home') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('supervisors.studentlist') }}" :active="request()->routeIs('supervisors.studentlist')">
+                            {{ __('Students List') }}
                         </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('supervisors.company.index') }}" :active="request()->routeIs('supervisor.company.index')">
                             {{ __('Company Review') }}
@@ -178,15 +181,24 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
         @can('admin')
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-jet-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dash') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{URL::to('supervisor') }}">
+                {{ __('SV') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('company.index') }}" :active="request()->routeIs('company.record.index')">
+                {{ __('Manage Company') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ URL::to('documents') }}">
+                {{ __('Docs') }}
             </x-jet-responsive-nav-link>
         @endif
         
         @can('studentView')
-                        <x-jet-nav-link href="{{ route('student.home.index') }}" :active="request()->routeIs('student.home.index')">
+                        <x-jet-responsive-nav-link href="{{ route('student.home.index') }}" :active="request()->routeIs('student.home.index')">
                             {{ __('Home') }}
-                        </x-jet-nav-link>
+                        </x-jet-responsive-nav-link>
         @endif
         </div>
         

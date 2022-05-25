@@ -42,4 +42,29 @@ class Students extends Model
     {
         return $this->belongsTo(Supervisor::class, 'Supervisor_id');
     }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'Supervisor_id');
+    }
+
+    public function scopeFilter($query)
+    {
+        if ($sv = request('sv')) {
+            $query->where('Supervisor_id', $sv);
+        }
+
+        // if ($ecoSector = request('ecoSector')) {
+        //     $query->where('eco_sector', $ecoSector);
+        // }
+        // // a code for both param such as request('ecoSector','sector')
+
+        if ($search = request('search')) {
+            $query->where('No_Matrik', 'LIKE', "%{$search}%")
+                ->orWhere('nama', 'LIKE', "%{$search}%")
+                ->orWhere('Sektor', 'LIKE', "%{$search}%")
+                ->orwhere('Negeri', 'LIKE', "%{$search}%");
+        }
+        return $query;
+    }
 }

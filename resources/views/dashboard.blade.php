@@ -1,9 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <link rel="icon" type="image/png" href="{{ asset('lifav.png') }}">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Welcome .. <b>{{Auth::user()->name}}</b>
-        </h2>
+        </h2> --}}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">DashBoard</h2>
     </x-slot>
     <div class="py-12">
         
@@ -102,19 +103,15 @@
           <br />
           {{-- Student List Table --}}
           <div class="card">
+            
             <div class="card-header bgsize-primary-4 white card-header">
                 <div class="pull-right">
                     <a href="{{route("deleteData")}}" onclick="delConfi()"><button type="submit"  class="btn btn-danger float-end btn-sm m-2"><i class="fa fa-trash m-1" aria-hidden="true"></i> Delete Records</button></a>
                     <a href="{{route("exportData")}}" class="btn btn-primary float-end btn-sm m-2"><i class="fa fa-download m-1" aria-hidden="true"></i>Export Excel Data</a>
                 </div>
                 <h4 class="card-title" style="padding-top: 10px">Student List Table</h4>
-                    
-                  
               </div>
-
               <div class="card-body" style="height:50%">
-
-
                   <div class=" card-content table-responsive">
 
                       <table id="student_t" class="table table-hover table-bordered text-nowrap" style="width:100%">
@@ -192,38 +189,34 @@
               </div>
 
               {{-- Queried Data Table --}}
-              
+          </div>
+          <div class="card mt-3">
               <div class="card-body">
-                <div class="card-header bgsize-primary-4 white card-header">
+                <div class="card-header bgsize-primary-4 white card-header rounded">
                     <h4 class="card-title" style="padding-top: 10px">Location</h4>
                     <p>Students are ordered by the Post Code in each State.</p>
                   </div>
                 <div class=" card-content table-responsive">
-  
-                    <table id="student_t" class="table table-hover table-bordered" style="width:100%">
-  
-                        <thead>
-  
-                          <tr>
-                            <th scope="col">State</th>
-                            <th scope="col">Number of Students
-                                <p class="fw-light fs-6">Select State to assign a Supervisor.</p>
-                            </th>
-                          </tr>
-  
-                        </thead>
-                        @foreach ( $location as $Negeri)
-                      
-                        <tbody>
-                        <tr>
-                            <th scope="row">{{$Negeri->Negeri}}</th>
-                            <td><a style="text-decoration: none" href="{{route('admin.StudentAllocation',$Negeri->Negeri)}}">{{$Negeri->NumberOfStudents ?? 'No Students to Assign'}}</a></td>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    <div class="pt-2">
+                        <table id="student_t" class="table table-hover table-bordered rounded" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="h4">State</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ( $location as $Negeri)
+                                <tr>
+                                    <th scope="row"><a style="text-decoration: none; color:black" href="{{route('admin.StudentAllocation',$Negeri->Negeri)}}"">{{$Negeri->Negeri}}</a></th>        
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                     </div>
                 </div>
             </div>
-          </div>
+            </div>
+          
          {{-- Student Location --}}
           
 
@@ -239,6 +232,7 @@
                     document.getElementById("sessionSuccess").innerHTML = message;
                 }
             }
+            
        </script>
     </div>
 </x-app-layout>

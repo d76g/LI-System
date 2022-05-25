@@ -16,7 +16,7 @@
 
                     {{-- Student List Table --}}
                     <button type="button" class="d-flex flex-column btn btn-danger mb-2 float-left col-md-1">
-                        <a href="{{route('dashboard')}}" style="text-decoration-line: none" class="text-white ml-3"><i class="fa-solid fa-arrow-left-long p-1">
+                        <a href="{{route('admin.dashboard')}}" style="text-decoration-line: none" class="text-white ml-3"><i class="fa-solid fa-arrow-left-long p-1">
                             </i>Back</a>
                     </button>
                     @if(!empty($state) && $state->count())
@@ -26,11 +26,17 @@
                 <form class="row g-3 pt-3" action="{{route('admin.allocation.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                             <select class="form-select" name="svName" aria-label="Default select example"> 
-                                <option selected>Select a supervisor</option>
+                                <option value="">Select a supervisor</option>
                                     @foreach ($supvervisorsList as $sv)
                                         <option value="{{$sv->id}}">{{$sv->name}}</option>
                                     @endforeach 
-                            </select>   
+                            </select> 
+                            @error('svName')
+                            <span class="text-danger">{{'*'.$message}}</span>
+                            @enderror
+                            @error('ids')
+                            <span class="text-danger">{{'*'.$message}}</span>
+                            @enderror  
                         </div>
                             
                         <div class="card-body">
@@ -85,7 +91,6 @@
                                                 <td>{{ $row->Nama_Syarikat_LI }}</td>
                                                 <td>{{ $row->Sektor }}</td>
                                                 <td>{{ $row->Sektor_Ekonomi }}</td>
-                                               
                                                 <td>{{ $row->Pegawai }}</td>
                                                 <td>{{ $row->No_Tel_Syarikat }}</td>
                                                 <td>{{ $row->No_Faks_Syarikat }}</td>
@@ -100,6 +105,7 @@
                                 </table>
                             </div>
                             <button type="submit" class="m-2 btn btn-primary" id="AssignSupervisors"><i class="fa-solid fa-person-circle-plus p-1 fa-lg"></i>Assign Supervisor</button>
+                            <button type="submit" class="m-2 btn btn-info text-light" id="AssignSupervisors"><i class="fas fa-envelope mr-2"></i>Notify Supervisor</button>
                         </div>
                          
                     </form>
@@ -108,7 +114,7 @@
                 <div class="card">
                 <div class="card-body container mt-1 bgsize-primary-5 d-flex flex-row">
                     <div class=" card-content table-responsive">
-                        <p class="h4">All Students are assigne to Supervisors</p>
+                        <p class="h4">All Students are Assigned to Supervisors in {{$Negeri}}</p>
                         <p class="text-secondary">Check the table below</p>
                     </div>
                 </div>

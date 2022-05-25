@@ -52,8 +52,12 @@
             <div class="svrecord card">
                 <div>
                     <h2 class="card-header">Supervisors Records</h2>
+                    <div class="my-2 ml-2">
+                        <p class="text-muted mb-0 ml-2" style="font-size:14px" id="info">Search by Name or Staff ID.</p>
+                        @include('supervisor.partials.filter')
+                    </div>
                 </div>
-                <table class="table">
+                <table class="table mt-2">
                     <thead>
                       <tr>
                         <th scope="col">ID</th>
@@ -101,6 +105,5 @@
                   </div>
                   
             </div>
-            
         </div>
 </x-app-layout>

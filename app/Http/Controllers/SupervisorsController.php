@@ -22,7 +22,8 @@ class SupervisorsController extends Controller
     }
     public function index()
     {
-        $svData = Supervisor::paginate(5);
+        $svData = Supervisor::latest()->filter()->paginate(5);
+
         // $trashData = Supervisor::onlyTrashed()->latest()->paginate(3);
         return view('supervisor.Record.index', compact('svData'));
     }

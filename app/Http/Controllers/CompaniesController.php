@@ -22,8 +22,13 @@ class CompaniesController extends Controller
     }
     public function index()
     {
-        $company = company::all();
-        return view('Company.Record.index', compact('company'));
+        $company = company::latest()->filter()->paginate(9);
+        $filterCompanyBySector = company::orderBy('sector', 'asc')->groupBy('sector')->pluck('sector')->prepend('All Sectors', '');
+        $filterCompanyByecoSector = company::orderBy('eco_sector', 'asc')->groupBy('eco_sector')->pluck('eco_sector')->prepend('All Eco Sectors', '');
+
+
+        // $filterCompany = company::orderBy('sector', 'asc')->groupBy('sector')->get('sector');
+        return view('Company.Record.index', compact('company', 'filterCompanyBySector', 'filterCompanyByecoSector'));
     }
 
     /**

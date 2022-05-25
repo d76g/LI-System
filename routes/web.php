@@ -13,8 +13,10 @@ use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\AllocationController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SupervisorsController;
 use App\Http\Controllers\DashboardImgController;
+use App\Http\Controllers\Supervisor\StudentListController;
 use App\Models\Students;
 
 /*
@@ -64,32 +66,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'role:supervisor', 'prefix' => 'supervisors', 'as' => 'supervisors.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\Supervisor\CompanyController::class);
         Route::resource(name: 'home', controller: \App\Http\Controllers\Supervisor\HomeController::class);
+        Route::get('/studentlist', [StudentListController::class, 'index'])->name('studentlist');
     });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\CompaniesController::class);
         Route::resource('allocation', AllocationController::class)->only('store', 'update');
         Route::get('/allocate/{Negeri}', [ExcelController::class, 'viewAllocation'])->name('StudentAllocation');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 });
 
 //Upload Excel File
 Route::group(['middleware' => 'auth', 'role:admin'], function () {
-    Route::get('dashboard', [ExcelController::class, 'index']);
+
     Route::post('student/import',  [ExcelController::class, 'importData'])->name('uploadData');
     Route::get('student/export',  [ExcelController::class, 'exportData'])->name('exportData');
     Route::get('student/delete',  [ExcelController::class, 'deleteRecord'])->name('deleteData');
 });
-
-Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->get('/dashboard', function () {
-    $students = Students::with('supervisor')->skip(0)->take(PHP_INT_MAX)->orderBy('Nama')->Paginate(15);
-    $location = DB::table('students')
-        ->select(DB::raw('count(Negeri) as NumberOfStudents, Negeri'))
-        ->whereNull('Supervisor_id')
-        ->groupBy('Negeri')
-        ->orderByDesc('NumberOfStudents')
-        ->get();
-    $supvervisor = Supervisor::with('student')->get();
-    return view('dashboard', compact('students', 'location', 'supvervisor'));
-})->name('dashboard');
 
 Route::get('/', [DashboardImgController::class, 'index'])->name('images');

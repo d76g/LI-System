@@ -73,6 +73,9 @@
             <div class="svrecord card">
                 <div>
                     <h2 class="card-header">Company Records</h2>
+                    <div class="my-2 ml-2">
+                        @include('company.partials.filter')
+                    </div>
                 </div>
                 
                 <table class="table">
@@ -92,34 +95,38 @@
                             $i = 1;
                         @endphp
                         @if (count($company) > 0)
-                        @foreach($company as $row)
-                        <tr>
-                            <td>{{$i++}}</td>
-                            <td>{{ $row->name }}</td>
-                            <td>{{ $row->eco_sector }}</td>
-                            <td>{{ $row->sector }}</td>
-                            <td>{{ $row->email }}</td>
-                            <td>{{'+60'.$row->phone_number }}</td>
-                            <td>
-                                <div class="d-grid gap-1 d-md-flex justify-content-md">
-                                    <a href="company/{{$row->id}}/edit"><button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-                                        Edit</button></a>
-                                    <form action="{{ route('company.destroy', $row -> id) }}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <a onclick="return confirm('Are you sure to Delete this record?')"><button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" ></i> Delete</button></a>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
+                            @foreach($company as $row)
+                            <tr>
+                                <td>{{$i++}}</td>
+                                <td>{{ $row->name }}</td>
+                                <td>{{ $row->eco_sector }}</td>
+                                <td>{{ $row->sector }}</td>
+                                <td>{{ $row->email }}</td>
+                                <td>{{'+60'.$row->phone_number }}</td>
+                                <td>
+                                    <div class="d-grid gap-1 d-md-flex justify-content-md">
+                                        <a href="company/{{$row->id}}/edit"><button type="button" class="btn btn-success" alt="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                            Edit</button></a>
+                                        <form action="{{ route('company.destroy', $row -> id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <a onclick="return confirm('Are you sure to Delete this record?')"><button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" ></i> Delete</button></a>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
                         @else
                             <p class="h3 text-danger text-center m-3">No Record found</p>
                             <p class="text-center fw-light"><i class="fa fa-plus" aria-hidden="true"></i> Add new Company record</p>
                         @endif
                     </tbody>
                   </table>
+                <div class="my-2 px-4">
+                    {{$company->appends(request()->only('id'))->links()}}
+                </div>
             </div>
+            
         </div>
         <div class="container mt-5">
             <div class="pb-2">
@@ -149,5 +156,4 @@
                 @endif
             </div>
         </div>
-        
 </x-app-layout>
