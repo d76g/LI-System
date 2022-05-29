@@ -18,9 +18,14 @@ class company extends Model
         'image_path',
     ];
 
-    public function comment()
+    public function Comment()
     {
-        return $this->hasMany(Comment::class, 'id');
+        return $this->hasMany(Comment::class, 'Company_id');
+    }
+
+    public function Rating()
+    {
+        return $this->hasMany(Rating::class, 'Company_id');
     }
 
     public function scopeFilter($query)

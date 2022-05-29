@@ -1,30 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers;
 
-use App\Models\company;
+use App\Models\Rating;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class CompanyController extends Controller
+class RatingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-
     public function index()
     {
-        $company = company::latest()->get();
-        return view('Company.StudentView.index', compact('company'));
+        //
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -44,7 +35,28 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'rating' => 'required',
+        ]);
+
+        if (!Rating::where('User_id', auth()->user()->id)->exists()) {
+            $newRating = new Rating();
+            $newRating->User_id = auth()->user()->id;
+            $newRating->Company_id = request('Company_id');
+            $newRating->Rating = request('rating');
+            $newRating->save();
+            return back();
+        } else {
+
+            Rating::where('User_id', auth()->user()->id)->update(
+                [
+                    'Rating' => request('rating'),
+                    'User_id' => auth()->user()->id,
+                    'Company_id' => request('Company_id')
+                ]
+            );
+            return back();
+        }
     }
 
     /**
@@ -55,7 +67,6 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**

@@ -161,7 +161,7 @@
                                       <td>{{ $row->No_Tel_Syarikat }}</td>
                                       <td>{{ $row->No_Faks_Syarikat }}</td>
                                       <td>{{ $row->Tarikh_Mula_LI }}</td>
-                                      <td>{{ $row->supervisor->name ?? 'Not Assigned' }}</td>
+                                      <td>{{ $row->Supervisor->name ?? 'Not Assigned' }}</td>
                                       <td>{{ $row->Program }}</td>
                                       <td>{{ $row->Status }}</td>
 

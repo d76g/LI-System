@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Rating;
 use App\Models\comment;
 use App\Models\company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Faker\Provider\ar_JO\Company as Ar_JOCompany;
 use Illuminate\Support\Facades\Session as Session;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments;
@@ -46,7 +49,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'comment' => 'required|min:10',
+            'comment' => 'required|min:10|max:1000',
         ]);
 
         if (!Comment::where('User_id', auth()->user()->id)->exists()) {
@@ -74,12 +77,20 @@ class CommentController extends Controller
             ->where('Company_id', '=', $id)
             ->orderBy('created_at', 'desc')
             ->get();
-
+        $userWithComment = User::has('comment')->where('id', '=', auth()->user()->id)->first();
         $lastCommentDate = Comment::latest('created_at')
             ->where('Company_id', '=', $id)
             ->first();
+        $companyRating = Rating::where('Company_id', '=', $id)->avg('rating');
+        $roundedRating = round($companyRating, 1);
+        $ratingCount = Rating::where('Company_id', '=', $id)->count('rating');
+        $commentCount = comment::where('Company_id', '=', $id)->count('content');
+        $userRating = Rating::where('User_id', '=', auth()->user()->id)->first();
         Session::put('company_url', request()->fullUrl());
-        return view('Comments.index', compact('companyComment', 'companyData', 'lastCommentDate'));
+        return view(
+            'Comments.index',
+            compact('companyComment', 'companyData', 'lastCommentDate', 'roundedRating', 'ratingCount', 'commentCount', 'userRating', 'userWithComment')
+        );
     }
 
     /**

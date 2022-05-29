@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers\Supervisor;
 
-use App\Models\company;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Meeting;
+use App\Models\Students;
 use Illuminate\Http\Request;
+use App\Models\CompanySupervisor;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class CompanyController extends Controller
+class MeetingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified', 'role:supervisor']);
-    }
-
     public function index()
     {
-        $company = company::latest()->filter()->paginate(9);
-        $filterCompanyBySector = company::orderBy('sector', 'asc')->groupBy('sector')->pluck('sector')->prepend('All Sectors', '');
-        $filterCompanyByecoSector = company::orderBy('eco_sector', 'asc')->groupBy('eco_sector')->pluck('eco_sector')->prepend('All Eco Sectors', '');
-        return view('Company.SupervisorView.index', compact('company', 'filterCompanyBySector', 'filterCompanyByecoSector'));
+        $student = CompanySupervisor::with('student')->get();
+        $meeting = Meeting::with('CompanySupervisor', 'Supervisor')->get();
+        // dd($student);
+        return view('supervisor.meeting.index', compact('student', 'meeting'));
     }
 
     /**
@@ -44,7 +44,27 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'title' => 'required|min:3',
+            'time' => 'required',
+            'type' => 'required',
+            'link' => 'nullable|url',
+            'student' => 'required',
+        ]);
+        // dd($request);
+
+        $newMeeting = new Meeting();
+        $newMeeting->Supervisor_id = auth()->user()->id;
+        $newMeeting->title = request('title');
+        $newMeeting->time = request('time');
+        $newMeeting->type = request('type');
+        $newMeeting->link = request('link');
+        $newMeeting->Student_id = request('student');
+        $companySV = CompanySupervisor::with('Student')->where('Student_id', '=', request('student'))->value('id');
+        $newMeeting->CompanySupervisor_id = $companySV;
+        $newMeeting->save();
+
+        return Redirect()->back()->with('success', 'Meeting Created');
     }
 
     /**
@@ -89,6 +109,8 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $svData = Meeting::find($id);
+        $svData->delete();
+        return Redirect()->back()->with('success', 'Meeting Record Deleted Successfully');
     }
 }

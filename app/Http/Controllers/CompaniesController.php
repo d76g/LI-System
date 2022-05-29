@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Comment;
 use App\Models\company;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -22,13 +23,11 @@ class CompaniesController extends Controller
     }
     public function index()
     {
-        $company = company::latest()->filter()->paginate(9);
+        $company = company::with('Rating')->latest()->filter()->paginate(9);
         $filterCompanyBySector = company::orderBy('sector', 'asc')->groupBy('sector')->pluck('sector')->prepend('All Sectors', '');
         $filterCompanyByecoSector = company::orderBy('eco_sector', 'asc')->groupBy('eco_sector')->pluck('eco_sector')->prepend('All Eco Sectors', '');
-
-
         // $filterCompany = company::orderBy('sector', 'asc')->groupBy('sector')->get('sector');
-        return view('Company.Record.index', compact('company', 'filterCompanyBySector', 'filterCompanyByecoSector'));
+        return view('Company.Record.index', compact('company', 'filterCompanyBySector', 'filterCompanyByecoSector''));
     }
 
     /**

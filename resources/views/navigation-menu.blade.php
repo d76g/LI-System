@@ -36,12 +36,16 @@
                         <x-jet-nav-link href="{{ route('student.home.index') }}" :active="request()->routeIs('student.home.index')">
                             {{ __('Home') }}
                         </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('student.companysv.index') }}" :active="request()->routeIs('student.docs.index')">
+                            {{ __('Supervisors') }}
+                        </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('student.company.index') }}" :active="request()->routeIs('student.company.index')">
-                            {{ __('Company Review') }}
+                            {{ __('Company Reviews') }}
                         </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('student.docs.index') }}" :active="request()->routeIs('student.docs.index')">
                             {{ __('Documents') }}
                         </x-jet-nav-link>
+                        
                         
                     @endif
 
@@ -49,12 +53,13 @@
                         <x-jet-nav-link href="{{ route('supervisors.home.index') }}" :active="request()->routeIs('supervisor.home.index')">
                             {{ __('Home') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('supervisors.studentlist') }}" :active="request()->routeIs('supervisors.studentlist')">
-                            {{ __('Students List') }}
-                        </x-jet-nav-link>
+                        
+
                         <x-jet-nav-link href="{{ route('supervisors.company.index') }}" :active="request()->routeIs('supervisor.company.index')">
                             {{ __('Company Review') }}
                         </x-jet-nav-link>
+                            @include('navDropDown')
+                        
                     @endif
                     
                 </div>

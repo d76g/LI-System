@@ -7,9 +7,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Students;
 use App\Models\Supervisor;
+use App\Models\User;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -274,7 +275,7 @@ class ExcelController extends Controller
 
     public function viewAllocation(Request $request)
     {
-        $supvervisorsList = Supervisor::all('id', 'name');
+        $supvervisorsList = User::where('role_id', '=', 3)->get();
         $Negeri = $request->Negeri;
         $state = Students::where('Negeri', '=', $Negeri)
             ->whereNull('Supervisor_id')
@@ -282,7 +283,7 @@ class ExcelController extends Controller
             ->get();
 
         $allocatedStudents = Students::where('Negeri', '=', $Negeri)
-            ->with('supervisor')
+            ->with('Supervisor')
             ->whereNotNull('Supervisor_id')
             ->orderBy('Poskod', 'desc')
             ->get();

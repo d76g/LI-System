@@ -8,6 +8,7 @@ use App\Models\Allocation;
 use App\Models\Supervisor;
 use Illuminate\Http\Request;
 use App\Mail\StudentAssigned;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
@@ -59,8 +60,8 @@ class AllocationController extends Controller
             $sv->save();
         }
 
-        $svEmail = Supervisor::where('id', '=', $request->svName)->get('email');
-        Mail::to($svEmail)->send(new StudentAssigned());
+        // $svEmail = User::where('id', '=', $request->svName)->get('email');
+        // Mail::to($svEmail)->send(new StudentAssigned());
 
         return back();
     }

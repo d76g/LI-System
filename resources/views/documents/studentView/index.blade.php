@@ -2,7 +2,7 @@
     <body>
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> --}}
           <!-- Page Content -->
-  <div class="container">
+  <div class="container  animate__animated animate__fadeInUp animate__slow">
   
       <!-- Page Heading -->
       <h1 class="my-4">Internship Documents

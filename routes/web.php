@@ -16,6 +16,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SupervisorsController;
 use App\Http\Controllers\DashboardImgController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Supervisor\StudentListController;
 use App\Models\Students;
 
@@ -53,6 +54,7 @@ Route::group(
 );
 Route::group(['middleware' => 'auth', 'verified'], function () {
     Route::resource('comment', CommentController::class);
+    Route::resource('rating', RatingController::class);
 });
 
 
@@ -62,10 +64,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\Student\CompanyController::class);
         Route::resource(name: 'home', controller: \App\Http\Controllers\Student\HomeController::class);
         Route::resource(name: 'docs', controller: \App\Http\Controllers\Student\DocumentController::class);
+        Route::resource(name: 'companysv', controller: \App\Http\Controllers\Student\CompanySupervisorController::class);
     });
     Route::group(['middleware' => 'role:supervisor', 'prefix' => 'supervisors', 'as' => 'supervisors.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\Supervisor\CompanyController::class);
         Route::resource(name: 'home', controller: \App\Http\Controllers\Supervisor\HomeController::class);
+        Route::resource(name: 'meeting', controller: \App\Http\Controllers\Supervisor\MeetingController::class);
         Route::get('/studentlist', [StudentListController::class, 'index'])->name('studentlist');
     });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {

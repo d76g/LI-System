@@ -5,7 +5,7 @@
             Internship Companies Records
         </h2>
     </x-slot>
-        <div class="container mt-5">
+        <div class="container mt-5  animate__animated animate__fadeInUp animate__slow">
             <div class="pb-5">
                 <h1>Company Review</h1>
                 <h5>Review by Students and Supervisors</h5>

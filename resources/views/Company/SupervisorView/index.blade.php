@@ -9,10 +9,14 @@
             <div class="pb-5">
                 <h1>Company Review</h1>
                 <h5>Review by Students and Supervisors</h5>
+                
             </div>
             <div class="row">
+                <div class="my-1 ml-2">
+                    @include('company.partials.filter')
+                </div>
                 @if (count($company) > 0)
-                
+    
                 @foreach ($company as $data)
                 <div class="col-md-4 mt-1 mb-3">
                     <div class="card p-3">

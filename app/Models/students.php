@@ -40,18 +40,13 @@ class Students extends Model
 
     public function Supervisor()
     {
-        return $this->belongsTo(Supervisor::class, 'Supervisor_id');
-    }
-
-    public function User()
-    {
         return $this->belongsTo(User::class, 'Supervisor_id');
     }
 
     public function scopeFilter($query)
     {
-        if ($sv = request('sv')) {
-            $query->where('Supervisor_id', $sv);
+        if ($negeri = request('negeri')) {
+            $query->where('negeri', $negeri);
         }
 
         // if ($ecoSector = request('ecoSector')) {
@@ -62,8 +57,7 @@ class Students extends Model
         if ($search = request('search')) {
             $query->where('No_Matrik', 'LIKE', "%{$search}%")
                 ->orWhere('nama', 'LIKE', "%{$search}%")
-                ->orWhere('Sektor', 'LIKE', "%{$search}%")
-                ->orwhere('Negeri', 'LIKE', "%{$search}%");
+                ->orWhere('Sektor', 'LIKE', "%{$search}%");
         }
         return $query;
     }

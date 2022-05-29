@@ -19,10 +19,6 @@ class Supervisor extends Model
         'email',
     ];
 
-    public function Student()
-    {
-        return $this->hasMany(Students::class, 'id');
-    }
     public function scopeFilter($query)
     {
         if ($search = request('search')) {

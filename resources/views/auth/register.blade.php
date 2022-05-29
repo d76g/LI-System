@@ -2,7 +2,7 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <div>
-                <img class="scale-50" src="{{URL('/logo/FSKTM LOGO.png')}}" alt="FSKTM LOGO">
+                <a href="{{route('images')}}"><img class="scale-50" src="{{URL('/logo/FSKTM LOGO.png')}}" alt="FSKTM LOGO"></a>
             </div>
         </x-slot>
 

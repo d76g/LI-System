@@ -14,7 +14,6 @@
                 <table id="student_t" class="table table-hover text-nowrap" style="width:100%">
 
                     <thead>
-                    <th class="table-secondary">Bil</th>
                     <th class="table-secondary">No_Matrik</th>
                     <th class="table-secondary">No_KP</th>
                     <th class="table-secondary">Nama</th>
@@ -30,7 +29,6 @@
                     <th class="table-secondary">No_Tel_Syarikat</th>
                     <th class="table-secondary">No_Faks_Syarikat</th>
                     <th class="table-secondary">Tarikh_Mula_LI</th>
-                    <th class="table-secondary">Penyelia_Fakulti</th>
                     <th class="table-secondary">Program</th>
                     <th class="table-secondary">Status</th>
                   </thead>
@@ -42,7 +40,6 @@
 
                         @foreach($students as $row)
                             <tr>
-                                <td>{{ $row->id }}</td>
                                 <td>{{ $row->No_Matrik }}</td>
                                 <td>{{ $row->No_KP }}</td>
                                 <td>{{ $row->Nama }}</td>
@@ -58,7 +55,6 @@
                                 <td>{{ $row->No_Tel_Syarikat }}</td>
                                 <td>{{ $row->No_Faks_Syarikat }}</td>
                                 <td>{{ $row->Tarikh_Mula_LI }}</td>
-                                <td>{{ $row->supervisor->name ?? 'Not Assigned' }}</td>
                                 <td>{{ $row->Program }}</td>
                                 <td>{{ $row->Status }}</td>
 
@@ -90,13 +86,13 @@
     </div>
     </div>
     <script>
-        document.getElementById("filter_sv").addEventListener("change", function () {
-        let sv = this.value || this.options[this.selectedIndex].value;
+        document.getElementById("filter_negeri").addEventListener("change", function () {
+        let negeri = this.value || this.options[this.selectedIndex].value;
         window.location.href =
-            window.location.href.split("?")[0] + "?sv=" + sv;
+            window.location.href.split("?")[0] + "?negeri=" + negeri;
         });
         document.getElementById("sv-btn-refresh").addEventListener("click", () => {
-        select = document.getElementById("filter_sv")
+        select = document.getElementById("filter_negeri")
         select.selectedIndex = 0;
         window.location.href = window.location.href.split("?")[0];
     });

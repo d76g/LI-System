@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Role;
+use App\Models\CompanySupervisor;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
-use Role;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -68,6 +69,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function Comment()
     {
-        return $this->hasOne(Comment::class, 'id');
+        return $this->hasOne(Comment::class, 'User_id');
+    }
+
+    public function Rating()
+    {
+        return $this->hasOne(Rating::class, 'User_id');
+    }
+
+    public function CompanySupervisor()
+    {
+        return $this->hasOne(CompanySupervisor::class, 'id');
+    }
+
+    public function Student()
+    {
+        return $this->hasMany(Students::class, 'id');
+    }
+
+    public function Meeting()
+    {
+        return $this->hasMany(Meeting::class, 'id');
     }
 }
