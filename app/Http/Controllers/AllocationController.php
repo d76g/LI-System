@@ -54,16 +54,23 @@ class AllocationController extends Controller
             ]
         );
 
-        foreach ($request->input('ids') as $student) {
-            $sv = Students::find($student);
-            $sv->supervisor_id = request('svName');
-            $sv->save();
+        if ($request->input('assignAndNotify')) {
+            foreach ($request->input('ids') as $student) {
+                $sv = Students::find($student);
+                $sv->supervisor_id = request('svName');
+                $sv->save();
+            }
+            $svEmail = User::where('id', '=', $request->svName)->get('email');
+            Mail::to($svEmail)->send(new StudentAssigned());
+            return back()->with('success', 'Student assigned and email sent to Supervisor');
+        } else {
+            foreach ($request->input('ids') as $student) {
+                $sv = Students::find($student);
+                $sv->supervisor_id = request('svName');
+                $sv->save();
+            }
+            return back()->with('success', 'Student assigned to Supervisor');
         }
-
-        // $svEmail = User::where('id', '=', $request->svName)->get('email');
-        // Mail::to($svEmail)->send(new StudentAssigned());
-
-        return back();
     }
 
     /**
@@ -106,7 +113,7 @@ class AllocationController extends Controller
             $sv->supervisor_id = NULL;
             $sv->save();
         }
-        return back();
+        return back()->with('success', 'Success, student reassigned');
     }
 
     /**

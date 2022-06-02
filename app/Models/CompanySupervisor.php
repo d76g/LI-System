@@ -20,7 +20,7 @@ class CompanySupervisor extends Model
 
     public function Student()
     {
-        return $this->belongsTo(User::class, 'Student_id');
+        return $this->belongsTo(User::class, 'id');
     }
 
     public function Meeting()

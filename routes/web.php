@@ -17,6 +17,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SupervisorsController;
 use App\Http\Controllers\DashboardImgController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\Supervisor\ExportStudentListController;
 use App\Http\Controllers\Supervisor\StudentListController;
 use App\Models\Students;
 
@@ -71,9 +72,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource(name: 'home', controller: \App\Http\Controllers\Supervisor\HomeController::class);
         Route::resource(name: 'meeting', controller: \App\Http\Controllers\Supervisor\MeetingController::class);
         Route::get('/studentlist', [StudentListController::class, 'index'])->name('studentlist');
+        Route::get('/export',  [ExportStudentListController::class, 'exportData'])->name('exportData');
     });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource(name: 'company', controller: \App\Http\Controllers\CompaniesController::class);
+        Route::resource(name: 'users', controller: \App\Http\Controllers\UsersController::class);
         Route::resource('allocation', AllocationController::class)->only('store', 'update');
         Route::get('/allocate/{Negeri}', [ExcelController::class, 'viewAllocation'])->name('StudentAllocation');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

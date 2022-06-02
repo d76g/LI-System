@@ -54,7 +54,7 @@
                     <select class="form-control py-2" name="student">
                       <option>Choose...</option>
                       @foreach ($student as $item)
-                      <option class="h-10" value="{{$item->student->id}}">{{$item->student->name}}</option>
+                      <option class="h-10" value="{{$item->id}}">{{$item->name}}</option>
                       @endforeach
                     </select>
                     @error('student')
@@ -96,6 +96,7 @@
                         <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-user-graduate mr-1"></i>{{$meet->student->name}}</h6>
                         <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-user-tie mr-1"></i>{{$meet->companysupervisor->name}}</h6>
                         <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-building mr-1"></i>{{$meet->companysupervisor->company}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-clock mr-1"></i>Created at {{$meet->created_at}}</h6>
                 </div>
             </div>
             @endforeach

@@ -18,6 +18,9 @@
                 
 
                     @can('admin')
+                    <x-jet-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
+                        {{ __('Users') }}
+                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Students') }}
                     </x-jet-nav-link>

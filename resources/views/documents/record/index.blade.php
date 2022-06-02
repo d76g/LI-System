@@ -157,6 +157,5 @@
         </div>
     </div>
 </div>
-  {{-- Script to hide and View Form --}}
-  <script src="{{URL::asset('js/hideAndView.js')}}" type="text/javascript"></script>
+
 </x-app-layout>

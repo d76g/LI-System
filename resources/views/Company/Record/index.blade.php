@@ -5,9 +5,9 @@
             Internship Companies Records
         </h2>
     </x-slot>
-        <div class="container-md  pt-3 " style="margin-top: 2rem">
-            <h2>Add Company</h2>
-            <div class="container-md pt-4 bg-info bg-gradient text-white rounded" >
+        <div  class="container-md  pt-3 " style="margin-top: 2rem;">
+            <h2>Add Company <button onclick="companyForm(); return false;" class="btn btn-primary btn-sm"> Add Company</button></h2>
+            <div id="companyForm" class="container-md pt-4 bg-info bg-gradient text-white rounded" style="display:none;" >
                 @if (session('success'))
                      @include('company.partials.index')
                 @endif
@@ -131,7 +131,7 @@
         <div class="container mt-5">
             <div class="pb-2">
                 <h1>Company Review</h1>
-                <h5>Review by Students and Supervisors</h5>
+                <h5>Reviews by Students and Supervisors</h5>
             </div>
             <div class="row">
                 @if (count($company) > 0)
@@ -141,22 +141,24 @@
                             <div class="card p-3">
                                 <div class="d-flex flex-row mb-3"><img src="{{Storage::URL($data->image_path)}}" width="70" alt="Company Image">
                                     <div class="d-flex flex-column ml-2"><span>{{ $data->name }}</span>
+                                        <span class="text-black-50">{{ $data->sector }}</span>
                                         <span class="text-black-50">{{ $data->eco_sector }}</span>
                                         <span></span>
-                                        {{-- <span class="text-black-50">
-                                            
-                                                @foreach ($data->rating as $rate)
-                                                    {{$rate->rating}}
-                                                @endforeach
-                                        </span> --}}
                                     </div>
                                 </div>
 
                                 <h6>{{'Email: ' . $data->email}}</h6>
-
+                                <span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span>
                                 <div class="d-flex justify-content-between install mt-3">
-                                    <span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span>
-                                    <span class="text-primary"><a href="{{route('comment.show',$data->id)}}">View&nbsp;<i class="fa fa-angle-right"></i></a></span></div>
+                                    <span>
+                                        <i class="fa fa-star mr-1"></i>{{round($data->ratings,1)}}
+                                        <i class="fa fa-comment pl-3 mr-1"></i>{{$data->comments}}
+                                    </span>
+                                    <span class="text-primary">
+                                        <a href="{{route('comment.show',$data->id)}}">View
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </span></div>
                             </div>
                         </div>
                     @endforeach

@@ -94,14 +94,15 @@
             <h4 class="animate__animated animate__bounce"><i class="fas fa-address-card mr-1"></i>Faculty Supervisor Details</h4>
             <div class="card animate__animated animate__bounceIn" style="width: 24rem;">
                 <div class="card-body">
-                    @empty($studentList)
-                        <h5 class="card-title">If You do not see your supervisor name, it might be for the following issues</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">You name does not match the name provided by UTHM.</h6>
-                        <h6 class="card-subtitle mb-2 text-muted">Or, a supervisor is not assigned yet.</h6>
-                    @endempty
+                    @if (empty($studentList))
+                    <h6 class="card-title">If You do not see your supervisor name, it might be for the following issues</h6>
+                    <p class="card-subtitle mb-2 text-muted">You name does not match the name provided by UTHM.</p>
+                    <p class="card-subtitle mb-2 text-muted">Or, a supervisor is not assigned yet.</p>
+                    @else
                     <h5 class="card-title">{{$studentList->Supervisor->name}}</h5>
                     <a href="mailto:{{$studentList->Supervisor->email}}" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Send Email">
                     <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-envelope mr-1"></i>{{$studentList->Supervisor->email}}</h6></a>
+                    @endif                    
                 </div>
               </div>
         </div>
@@ -120,6 +121,8 @@
                         <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-location-dot mr-1"></i>{{$meet->type}}</h6>
                         <a class="text-dark text-decoration-none" href="{{$meet->link}}"><h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-link mr-1"></i>{{$meet->link ?? 'Meeting Offline'}}</h6></a>
                         <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-address-card mr-1"></i>{{$meet->Supervisor->name}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-clock mr-1"></i>Created at {{$meet->created_at}}</h6>
+
                 </div>
             </div>
             @endforeach

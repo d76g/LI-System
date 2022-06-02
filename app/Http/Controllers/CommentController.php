@@ -73,11 +73,11 @@ class CommentController extends Controller
     public function show($id)
     {
         $companyData = company::find($id);
-        $companyComment = Comment::with('Company', 'User')
+        $companyComment = Comment::with(['Company', 'User'])
             ->where('Company_id', '=', $id)
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->get();
-        $userWithComment = User::has('comment')->where('id', '=', auth()->user()->id)->first();
+        $userWithComment = comment::with('User')->where('User_id', '=', auth()->user()->id)->first();
         $lastCommentDate = Comment::latest('created_at')
             ->where('Company_id', '=', $id)
             ->first();
@@ -85,11 +85,23 @@ class CommentController extends Controller
         $roundedRating = round($companyRating, 1);
         $ratingCount = Rating::where('Company_id', '=', $id)->count('rating');
         $commentCount = comment::where('Company_id', '=', $id)->count('content');
-        $userRating = Rating::where('User_id', '=', auth()->user()->id)->first();
+        $userRating = Rating::with('User')
+            ->where('User_id', '=', auth()->user()->id)
+            ->where('Company_id', '=', $id)
+            ->first();
         Session::put('company_url', request()->fullUrl());
         return view(
             'Comments.index',
-            compact('companyComment', 'companyData', 'lastCommentDate', 'roundedRating', 'ratingCount', 'commentCount', 'userRating', 'userWithComment')
+            compact(
+                'companyComment',
+                'companyData',
+                'lastCommentDate',
+                'roundedRating',
+                'ratingCount',
+                'commentCount',
+                'userRating',
+                'userWithComment',
+            )
         );
     }
 

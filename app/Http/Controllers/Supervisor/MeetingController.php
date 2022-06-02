@@ -9,7 +9,9 @@ use App\Models\Students;
 use Illuminate\Http\Request;
 use App\Models\CompanySupervisor;
 use App\Http\Controllers\Controller;
+use App\Mail\MeetingEmail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MeetingController extends Controller
 {
@@ -20,9 +22,11 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $student = CompanySupervisor::with('student')->get();
-        $meeting = Meeting::with('CompanySupervisor', 'Supervisor')->get();
+        $student = User::has('CompanySupervisor')->get();
         // dd($student);
+        $meeting = Meeting::with('CompanySupervisor', 'Supervisor')
+            ->where('Supervisor_id', '=', Auth::user()->id)
+            ->get();
         return view('supervisor.meeting.index', compact('student', 'meeting'));
     }
 
@@ -51,8 +55,6 @@ class MeetingController extends Controller
             'link' => 'nullable|url',
             'student' => 'required',
         ]);
-        // dd($request);
-
         $newMeeting = new Meeting();
         $newMeeting->Supervisor_id = auth()->user()->id;
         $newMeeting->title = request('title');
@@ -64,7 +66,11 @@ class MeetingController extends Controller
         $newMeeting->CompanySupervisor_id = $companySV;
         $newMeeting->save();
 
-        return Redirect()->back()->with('success', 'Meeting Created');
+        $companySVemail = CompanySupervisor::with('Student')->where('Student_id', '=', request('student'))->get('email');
+        Mail::to($companySVemail)->send(
+            new MeetingEmail($newMeeting)
+        );
+        return Redirect()->back()->with('success', 'Meeting Created and Email Sent to Company Supervisor');
     }
 
     /**

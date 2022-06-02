@@ -1,15 +1,16 @@
 <div class="d-flex flex-row">
-    <div class="col-md-8">
+    <div class="col-md-14 float float-start">
       <form>
         <div class="d-flex flex-row">
           <div class="d-flex flex-col">
-            <p class="text-muted mb-0 ml-2" style="font-size:14px" id="info">Filter by Supervisors</p>
+            <p class="text-muted m-2" style="font-size:14px" id="info">Filter by Supervisors</p>
           </div>
           <div class="input-group-prepend">
             <select id="filter_negeri" name="negeri" class="outline-secondary custom-select rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              @foreach ($filterStudentsbyNegeri as $negeri)
-                <option class="dropdown-item" {{$negeri == request()->query('negeri') ? 'selected' : '' }} value="{{$negeri}}">{{$negeri}}</option>                
+              <option value="">All States</option>
+              @foreach ($filterStudentsbyNegeri as $record)
+                <option class="dropdown-item" {{$record == request()->query('negeri') ? 'selected' : '' }} value="{{$record->Negeri}}">{{$record->Negeri}}</option>                
               @endforeach
             </div>
             </select>
@@ -27,6 +28,7 @@
                 <button class="btn btn-outline-secondary ml-1" type="submit" id="button-addon2">
                   <i class="fa fa-search"></i>
                 </button>
+                
               </div>
             </div>
           </div>

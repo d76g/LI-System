@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^8.65",
         "laravel/jetstream": "^2.4",
         "laravel/sanctum": "^2.11",
@@ -16,7 +17,7 @@
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "*",
         "phpoffice/phpspreadsheet": "dev-NumberFormatMask-Helpers",
-        "power-components/livewire-powergrid": "^2.4"
+        "power-components/livewire-powergrid": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

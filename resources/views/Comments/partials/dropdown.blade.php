@@ -19,7 +19,7 @@
         </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a href="{{$comment->id}}/edit"><button type="button" class="btn">Edit</button></a>
-                <form action="{{ route('comment.destroy', $comment->id) }}" method="POST">
+            <form action="{{ route('comment.destroy', $comment->id) }}" method="POST">
             @method('DELETE')
             @csrf
             <a class="dropdown-item" onclick="return confirm('Are you sure to Delete this record?')"><button type="submit">Delete</button></a>

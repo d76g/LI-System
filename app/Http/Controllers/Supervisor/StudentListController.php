@@ -14,7 +14,7 @@ class StudentListController extends Controller
     public function index()
     {
         $students = Students::with('Supervisor')->where('supervisor_id', '=', Auth::user()->id)->orderBy('Nama')->filter()->Paginate(15);
-        $filterStudentsbyNegeri = Students::groupBy('Negeri')->pluck('Negeri')->prepend('All States', '');
+        $filterStudentsbyNegeri = Students::orderBy('Negeri', 'asc')->groupBy('Negeri')->get('Negeri');
         return view('supervisor.studentlist.index', compact('students', 'filterStudentsbyNegeri'));
     }
 }

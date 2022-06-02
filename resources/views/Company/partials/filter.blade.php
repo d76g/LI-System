@@ -7,22 +7,12 @@
             <div class="input-group-prepend mx-2">
                 <select id="filter_sector" name="sector" class="outline-secondary custom-select rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div lass="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {{-- <option  id="selectedDropDown" selected>All Sectors</option> --}}
+                  <option  id="selectedDropDown" value="">All Sectors</option>
                   @foreach ($filterCompanyBySector as $record)
-                    <option class="dropdown-item" {{$record == request()->query('sector') ? 'selected' : '' }} value="{{$record}}">{{$record}}</option>                
+                    <option class="dropdown-item" {{$record == request()->query('sector') ? 'selected' : '' }} value="{{$record->sector}}">{{$record->sector}}</option>                
                   @endforeach
                 </div>
                 </select>
-            </div>
-            {{-- Eco Sector Dropdown --}}
-            <div class="input-group-prepend mx-2">
-              <select id="filter_ecosector" name="ecoSector" class="outline-secondary custom-select rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <div lass="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                @foreach ($filterCompanyByecoSector as $record)
-                  <option class="dropdown-item" {{$record == request()->query('ecoSector') ? 'selected' : '' }} value="{{$record}}">{{$record}}</option>                
-                @endforeach
-              </div>
-              </select>
             </div>
           {{-- Search bar --}}
             <div class="input-group">

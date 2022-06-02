@@ -20,10 +20,9 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $company = company::latest()->filter()->paginate(9);
-        $filterCompanyBySector = company::orderBy('sector', 'asc')->groupBy('sector')->pluck('sector')->prepend('All Sectors', '');
-        $filterCompanyByecoSector = company::orderBy('eco_sector', 'asc')->groupBy('eco_sector')->pluck('eco_sector')->prepend('All Eco Sectors', '');
-        return view('Company.SupervisorView.index', compact('company', 'filterCompanyBySector', 'filterCompanyByecoSector'));
+        $company = company::withAvg('rating as ratings', 'rating')->withCount('comment as comments')->latest()->filter()->paginate(12);
+        $filterCompanyBySector = company::orderBy('sector', 'asc')->groupBy('sector')->get('sector');
+        return view('Company.SupervisorView.index', compact('company', 'filterCompanyBySector'));
     }
 
     /**

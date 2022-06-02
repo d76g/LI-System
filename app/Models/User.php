@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Role;
 use App\Models\CompanySupervisor;
+use App\Models\Role as ModelsRole;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -25,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string[]
      */
+    use SoftDeletes;
     protected $fillable = [
         'name',
         'email',
@@ -62,9 +65,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public function role()
+    public function Role()
     {
-        return $this->belongsTo('App\Models\Role');
+        return $this->belongsTo(ModelsRole::class);
     }
 
     public function Comment()
@@ -79,7 +82,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function CompanySupervisor()
     {
-        return $this->hasOne(CompanySupervisor::class, 'id');
+        return $this->hasOne(CompanySupervisor::class, 'Student_id');
     }
 
     public function Student()
@@ -90,5 +93,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function Meeting()
     {
         return $this->hasMany(Meeting::class, 'id');
+    }
+
+    public function scopeFilter($query)
+    {
+        if ($role = request('role')) {
+            $query->where('role_id', $role);
+        }
+        // a code for both param such as request('ecoSector','sector')
+
+        if ($search = request('search')) {
+            $query->where('name', 'LIKE', "%{$search}%");
+        }
+        return $query;
     }
 }

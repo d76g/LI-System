@@ -22,7 +22,10 @@ class CompanySupervisorController extends Controller
     {
         $companysv = CompanySupervisor::where('Student_id', auth()->user()->id)->first();
         $companyName = company::all('id', 'name');
-        $studentList = Students::with('Supervisor')->where('nama', '=', Auth::user()->name)->first();
+        $studentList = Students::with('Supervisor')
+            ->where('nama', '=', Auth::user()->name)
+            ->where('Supervisor_id', '!=', NULL)
+            ->first();
         $meeting = Meeting::with('CompanySupervisor', 'Supervisor')->where('Student_id', '=', Auth::user()->id)->get();
         return view('Students.CompanySV.index', compact('companysv', 'companyName', 'studentList', 'meeting'));
     }

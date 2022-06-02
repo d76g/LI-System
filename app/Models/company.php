@@ -33,10 +33,6 @@ class company extends Model
         if ($sector = request('sector')) {
             $query->where('sector', $sector);
         }
-
-        if ($ecoSector = request('ecoSector')) {
-            $query->where('eco_sector', $ecoSector);
-        }
         // a code for both param such as request('ecoSector','sector')
 
         if ($search = request('search')) {

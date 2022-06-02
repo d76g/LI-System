@@ -12,7 +12,7 @@
                 <div class="mb-2 animate__animated  animate__fadeInLeft">
                     @include('Comments.partials.goBack')
                 </div>
-                <div class="d-flex flex-row col-md-12 align-items-center text-left comment-top p-2 bg-white border-bottom px-4 rounded animate__animated animate__bounceInDown z-0" style="height: 180px">
+                <div class="d-flex flex-row col-md-12 align-items-center text-left comment-top p-2 bg-white border-bottom px-4 rounded animate__animated animate__fadeIn z-0" style="height: 180px">
                     <div class="profile-image col-1 pr-4">
                         <img class="rounded-circle" src="{{Storage::URL($companyData->image_path)}}" width="100" alt="Company Image">
                     </div>
@@ -57,14 +57,17 @@
                     
                 </div>
                 
-                <div class="bg-white mt-4 mb-4 p-3 px-2 rounded animate__animated animate__bounceInUp">
-
+                <div class="bg-white mt-4 mb-4 p-3 px-2 rounded animate__animated animate__fadeIn">
+                    
                 @empty($userWithComment)
                 <form action="{{route('comment.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if (session('success'))
                             @include('comments.partials.index')
                     @endif
+                    <div class="alert alert-warning rounded d-flex justify-content-center align-items-center pb-1">
+                        <p> <i class="fa-solid fa-circle-exclamation"></i> Note: this comment section will be hidden once you post a comment ...</p>
+                    </div>
                     <div class="d-flex flex-row add-comment-section py-2 px-4">
                         <img class="img-fluid img-responsive rounded-circle mr-2" src="{{Auth::user()->profile_photo_url}}" width="38" alt="Avatar">
                         <input type="text" class="form-control mr-3" name="comment" placeholder="Write a comment about this company (One Comment ONLY)">
@@ -83,7 +86,6 @@
                             <div class="d-flex flex-row align-items-center">
                                 <img class="img-fluid img-responsive rounded-circle mr-2" src="{{$comment->User->profile_photo_url}}" width="38" alt="Avatar">
                                 <h5 class="mr-2 text-secondary">{{$comment->User->name}}</h5>
-                                <span class="mb-1 ml-2"> by {{$comment->user->role->role}}</span>
                                 <span class="dot mb-1"></span>
                                 @if ($comment->updated_at == NULL)
                                 <span class="mb-1 ml-2">{{$comment->created_at->format('F j, Y, g:i a')}}</span>

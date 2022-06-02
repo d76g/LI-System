@@ -49,11 +49,6 @@ class Students extends Model
             $query->where('negeri', $negeri);
         }
 
-        // if ($ecoSector = request('ecoSector')) {
-        //     $query->where('eco_sector', $ecoSector);
-        // }
-        // // a code for both param such as request('ecoSector','sector')
-
         if ($search = request('search')) {
             $query->where('No_Matrik', 'LIKE', "%{$search}%")
                 ->orWhere('nama', 'LIKE', "%{$search}%")

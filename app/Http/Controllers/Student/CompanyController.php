@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Models\company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Rating;
 
 class CompanyController extends Controller
 {
@@ -21,8 +22,9 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $company = company::latest()->get();
-        return view('Company.StudentView.index', compact('company'));
+        $company = company::withAvg('rating as ratings', 'rating')->withCount('comment as comments')->latest()->filter()->get();
+        $filterCompanyBySector = company::orderBy('sector', 'asc')->groupBy('sector')->get('sector');
+        return view('Company.StudentView.index', compact('company', 'filterCompanyBySector'));
     }
 
 

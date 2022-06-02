@@ -5,8 +5,18 @@
     </x-slot>
     <div class="container card mt-4">
         <div class="bg-light my-3 rounded">
-            <div class="my-2 px-3 ">
+            <div class="my-2 px-3 d-flex flex-row col-md-14">
                 @include('supervisor.Studentlist.filter')
+                <div class="col-md-2 float float-end">
+                    <form action="{{route('supervisors.exportData')}}" method="POST">
+                        @csrf
+                        @method('GET')
+                      <button class="btn btn-outline-secondary ml-1 p-2" type="submit" id="button-addon2">
+                        <i class="fas fa-file-download"></i>
+                      </button>
+                    </form>
+                </div>
+                
             </div>
         <div class="card-body" style="height:50%">
             <div class=" card-content table-responsive">

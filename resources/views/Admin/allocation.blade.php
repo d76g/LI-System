@@ -19,6 +19,9 @@
                         <a href="{{route('admin.dashboard')}}" style="text-decoration-line: none" class="text-white ml-3"><i class="fa-solid fa-arrow-left-long p-1">
                             </i>Back</a>
                     </button>
+                    @if (session('success'))
+                        @include('admin.partials.success')
+                    @endif
                     @if(!empty($state) && $state->count())
                     <div class="card">
                         <div class="card-header bgsize-primary-4 white card-header">
@@ -29,7 +32,7 @@
                                 <option value="">Select a supervisor</option>
                                     @foreach ($supvervisorsList as $sv)
                                         <option value="{{$sv->id}}">{{$sv->name}}</option>
-                                    @endforeach 
+                                    @endforeach
                             </select> 
                             @error('svName')
                             <span class="text-danger">{{'*'.$message}}</span>
@@ -104,8 +107,14 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button type="submit" class="m-2 btn btn-primary" id="AssignSupervisors"><i class="fa-solid fa-person-circle-plus p-1 fa-lg"></i>Assign Supervisor</button>
-                            <button type="submit" class="m-2 btn btn-info text-light" id="AssignSupervisors"><i class="fas fa-envelope mr-2"></i>Notify Supervisor</button>
+                            <button type="submit" name="assign" class="m-2 btn btn-primary" id="AssignSupervisors"
+                             value="assigne"><i class="fa-solid fa-person-circle-plus p-1 fa-lg"></i>
+                             Assign Supervisor
+                            </button>
+                            <button type="submit" name="assignAndNotify" value="assignAndNotify" class="m-2 btn btn-info text-light"
+                             id="AssignSupervisors"><i class="fas fa-envelope mr-2"></i>
+                             Assign & Notify Supervisor
+                            </button>
                         </div>
                          
                     </form>

@@ -8,23 +8,39 @@
         <div class="container mt-5  animate__animated animate__fadeInUp animate__slow">
             <div class="pb-5">
                 <h1>Company Review</h1>
-                <h5>Review by Students and Supervisors</h5>
-                <p>View seniors review about your selected company in LI System.</p>
+                <h5>Reviews by Students and Supervisors</h5>
+                <p>View seniors reviews about your selected company in LI System.</p>
             </div>
             <div class="row">
+                <div class="my-1 ml-2">
+                    @include('company.partials.filter')
+                </div>
                 @if (count($company) > 0)
                 
                     @foreach ($company as $data)
                         <div class="col-md-4 mt-1 mb-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-row mb-3"><img src="{{Storage::URL($data->image_path)}}" width="70" alt="Company Image">
-                                    <div class="d-flex flex-column ml-2"><span>{{ $data->name }}</span><span class="text-black-50">{{ $data->eco_sector }}</span><span class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span></div>
+                            <div class="card p-4">
+                                <div class="d-flex flex-row mb-3 col-md-12">
+                                    <img src="{{Storage::URL($data->image_path)}}" class="col-4 pb-4" alt="Company Image">
+                                    <div class="d-flex flex-col ml-2 col-md-12 pr-2">
+                                        <span>{{ $data->name }}</span>
+                                        <span class="text-black-50">{{ $data->sector }}</span>
+                                        <span class="text-black-50">{{ $data->eco_sector }}</span>
+                                    </div>
                                 </div>
                                 <h6>{{'Email: ' . $data->email}}</h6>
-                                <div class="d-flex justify-content-between install mt-3"><span>{{'Contact Number: ' .'+60'.$data->phone_number }}</span>
-                                    <span class="text-primary">
-                                        <a href="{{route('comment.show',$data->id)}}">Reviews
-                                            <i class="fa fa-angle-right"></i>
+                                <h6 class="text-black-50">{{'Contact Number: ' . $data->phone_number}}</h6>
+
+                                <div class="d-flex justify-content-between install mt-3">
+                                    <span class="text-dark">
+                                        <i class="fa fa-star mr-1"></i>{{round($data->ratings,1)}}
+                                        <i class="fa fa-comment pl-3 mr-1"></i>{{$data->comments}}
+
+                                    </span>
+                                    <span class="text-dark">
+                                        <a href="{{route('comment.show',$data->id)}}" class="text-decoration-none">
+                                            <i class="fa fa-comment"></i>
+                                            Add Comment
                                         </a>
                                     </span>
                                     </div>

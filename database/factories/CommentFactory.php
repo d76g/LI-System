@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
@@ -11,10 +12,13 @@ class CommentFactory extends Factory
      *
      * @return array
      */
+    protected $model = Comment::class;
+
     public function definition()
     {
         return [
-            //
+            'content' => $this->faker->text,
+            'Company_id' => rand(50, 59),
         ];
     }
 }

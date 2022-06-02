@@ -3,11 +3,11 @@ document.getElementById("filter_sector").addEventListener("change", function () 
         window.location.href =
             window.location.href.split("?")[0] + "?sector=" + sector;
     });
-document.getElementById("filter_ecosector").addEventListener("change", function () {
-        let ecoSector = this.value || this.options[this.selectedIndex].value;
-        window.location.href =
-            window.location.href.split("?")[0] + "?ecoSector=" + ecoSector;
-    });
+// document.getElementById("filter_ecosector").addEventListener("change", function () {
+//         let ecoSector = this.value || this.options[this.selectedIndex].value;
+//         window.location.href =
+//             window.location.href.split("?")[0] + "?ecoSector=" + ecoSector;
+//     });
 
 
 
@@ -22,12 +22,11 @@ document.getElementById("filter_ecosector").addEventListener("change", function 
 
 document.getElementById("btn-clear").addEventListener("click", () => {
     let input = document.getElementById("search"),
-        select = document.getElementById("filter_sector"),
-        select2 = document.getElementById("filter_ecosector");
+        select = document.getElementById("filter_sector");
+       
 
     input.value = "";
     select.selectedIndex = 0;
-    select2.selectedIndex = 0;
     window.location.href = window.location.href.split("?")[0];
 });
 

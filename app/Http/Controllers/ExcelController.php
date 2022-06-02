@@ -203,7 +203,12 @@ class ExcelController extends Controller
         $data = Students::with('supervisor')
             ->orderBy('Nama', 'ASC')->get();
 
-        $data_array[] = array("id", "No_Matrik", "No_KP", "Nama", "Poskod", "Bandar", "Negeri", "Kod_Prog", "Tahun_Pengajian", "No_Tel_Pelajar", "Nama_Syarikat_LI", "Sektor", "Sektor_Ekonomi", "Alamat_Syarikat", "Pegawai", "No_Tel_Syarikat", "No_Faks_Syarikat", "Tarikh_Mula_LI", "Tarikh_Tamat_LI", "Tarikh_Lapor_Diri", "Penyelia_Fakulti_id", "Program", "Status");
+        $data_array[] = array(
+            "id", "No_Matrik", "No_KP", "Nama", "Poskod", "Bandar", "Negeri",
+            "Kod_Prog", "Tahun_Pengajian", "No_Tel_Pelajar", "Nama_Syarikat_LI", "Sektor",
+            "Sektor_Ekonomi", "Alamat_Syarikat", "Pegawai", "No_Tel_Syarikat", "No_Faks_Syarikat",
+            "Tarikh_Mula_LI", "Tarikh_Tamat_LI", "Tarikh_Lapor_Diri", "Penyelia_Fakulti_id", "Program", "Status"
+        );
 
         foreach ($data as $data_item) {
 
@@ -275,7 +280,7 @@ class ExcelController extends Controller
 
     public function viewAllocation(Request $request)
     {
-        $supvervisorsList = User::where('role_id', '=', 3)->get();
+        $supvervisorsList = User::where('role_id', '=', 3)->orderBy('name')->get();
         $Negeri = $request->Negeri;
         $state = Students::where('Negeri', '=', $Negeri)
             ->whereNull('Supervisor_id')
