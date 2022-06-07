@@ -7,10 +7,10 @@
     </x-slot>
         <div  class="container-md  pt-3 " style="margin-top: 2rem;">
             <h2>Add Company <button onclick="companyForm(); return false;" class="btn btn-primary btn-sm"> Add Company</button></h2>
-            <div id="companyForm" class="container-md pt-4 bg-info bg-gradient text-white rounded" style="display:none;" >
-                @if (session('success'))
+            @if (session('success'))
                      @include('company.partials.index')
                 @endif
+            <div id="companyForm" class="container-md pt-4 bg-info bg-gradient text-white rounded" style="display:none;" >
                 
                 <form class="row g-3 pt-3" action="{{URL::to('company/create')}}" method="POST" enctype="multipart/form-data">
                     @csrf

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RenameRoleTable extends Migration
+class Role extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class RenameRoleTable extends Migration
      */
     public function up()
     {
-        Schema::rename('role', 'roles');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('role');
+        });
     }
 
     /**
@@ -23,6 +26,6 @@ class RenameRoleTable extends Migration
      */
     public function down()
     {
-        Schema::rename('roles', 'role');
+        Schema::dropIfExists('roles');
     }
 }

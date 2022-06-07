@@ -2,25 +2,22 @@
 
 namespace Database\Factories;
 
-use App\Models\company;
-use App\Models\Rating;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RatingFactory extends Factory
+class RoleFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    protected $model = Rating::class;
-
+    protected $role = Role::class;
     public function definition()
     {
         return [
-            'User_id' => rand(2, 10),
-            'rating' => rand(1, 5),
-            'Company_id' => 1,
+            // 'Role' => $this->faker->unique()->randomElement($array = array('Admin', 'Student', 'Supervisor')),
+
         ];
     }
 }

@@ -95,9 +95,10 @@
             <div class="card animate__animated animate__bounceIn" style="width: 24rem;">
                 <div class="card-body">
                     @if (empty($studentList))
-                    <h6 class="card-title">If You do not see your supervisor name, it might be for the following issues</h6>
-                    <p class="card-subtitle mb-2 text-muted">You name does not match the name provided by UTHM.</p>
-                    <p class="card-subtitle mb-2 text-muted">Or, a supervisor is not assigned yet.</p>
+                    <h6 class="card-title">If You do not see your supervisor name, it might be for the following reasons</h6>
+                    <p class="card-subtitle mb-2 text-muted">1 - Your name does not match the name provided by UTHM.</p>
+                    <p class="card-subtitle mb-2 text-muted">2 - Supervisor is not assigned yet.</p>
+                    <p class="card-subtitle mb-2 text-muted">*Contact the Internship Coordinator*</p>
                     @else
                     <h5 class="card-title">{{$studentList->Supervisor->name}}</h5>
                     <a href="mailto:{{$studentList->Supervisor->email}}" class="text-decoration-none" data-toggle="tooltip" data-placement="top" title="Send Email">

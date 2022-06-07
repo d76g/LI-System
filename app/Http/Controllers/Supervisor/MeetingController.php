@@ -23,7 +23,6 @@ class MeetingController extends Controller
     public function index()
     {
         $student = User::has('CompanySupervisor')->get();
-        // dd($student);
         $meeting = Meeting::with('CompanySupervisor', 'Supervisor')
             ->where('Supervisor_id', '=', Auth::user()->id)
             ->get();
