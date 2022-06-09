@@ -52,7 +52,7 @@
                 <div class="col-6">
                     <label class="form-label " for="inputState">Choose Student</label>
                     <select class="form-control py-2" name="student">
-                      <option>Choose...</option>
+                      <option value="">Choose...</option>
                       @foreach ($student as $item)
                       <option class="h-10" value="{{$item->id}}">{{$item->name}}</option>
                       @endforeach

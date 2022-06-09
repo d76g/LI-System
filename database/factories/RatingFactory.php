@@ -18,9 +18,9 @@ class RatingFactory extends Factory
     public function definition()
     {
         return [
-            'User_id' => rand(2, 10),
+            'User_id' => rand(2, 32),
             'rating' => rand(1, 5),
-            'Company_id' => 1,
+            'Company_id' => rand(1, 3),
         ];
     }
 }
