@@ -24,6 +24,6 @@ class Comment extends Model
 
     public function User()
     {
-        return $this->belongsTo(User::class, 'User_id');
+        return $this->belongsTo(User::class, 'User_id')->withTrashed();
     }
 }

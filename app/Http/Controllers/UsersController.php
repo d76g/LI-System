@@ -13,6 +13,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // To display users information in the Admin Panel
     public function index()
     {
         $users = User::with('role')->filter()->latest()->paginate(25);
@@ -71,6 +72,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // To restore disabled Users.
     public function update(Request $request, $id)
     {
         $restoreUser = User::onlyTrashed()->where('id', '=', $id)->first();
@@ -84,6 +86,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // To disable Users and Delete.
     public function destroy($id)
     {
         $userDelete = User::find($id);

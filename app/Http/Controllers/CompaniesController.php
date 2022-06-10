@@ -21,6 +21,7 @@ class CompaniesController extends Controller
     {
         $this->middleware(['auth', 'verified', 'role:admin']);
     }
+    // To Display All Company Information to users
     public function index()
     {
         $company = company::withAvg('rating as ratings', 'rating')->withCount('comment as comments')->latest()->filter()->paginate(12);
@@ -33,8 +34,10 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Add a new Company Record
     public function create(Request $request)
     {
+        // To validate input
         $validated = $request->validate([
             'name' => 'required|unique:companies|max:255',
             'eco_sector' => 'required',
@@ -43,13 +46,14 @@ class CompaniesController extends Controller
             'phone_number' => 'required',
             'image' => 'required|mimes:jpg,png,jpeg|max:5048',
         ]);
+        // To insert record to database
         company::insert([
             'name' => $request->name,
             'eco_sector' => $request->eco_sector,
             'sector' => $request->sector,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
-            'image_path' => $request->file('image')->store('images', 'public'),
+            'image_path' => $request->file('image')->store('LIcompany', 'public'),
             'created_at' => Carbon::now()
 
         ]);
@@ -123,7 +127,7 @@ class CompaniesController extends Controller
             $Image = company::find($id);
             $oldImageName = $Image->image_path;
             Storage::disk('public')->delete($oldImageName);
-            $newImage = $request->file('image')->store('images', 'public');
+            $newImage = $request->file('image')->store('LIcompany', 'public');
             company::find($id)->update([
                 'name' => $request->name,
                 'eco_sector' => $request->eco_sector,

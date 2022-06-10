@@ -33,12 +33,13 @@ class RatingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //Add a new rating
     public function store(Request $request)
     {
         request()->validate([
             'rating' => 'required',
         ]);
-
+        // To check if a user dosen't have a rating
         if (!Rating::where('User_id', auth()->user()->id)->exists()) {
             $newRating = new Rating();
             $newRating->User_id = auth()->user()->id;
@@ -47,7 +48,7 @@ class RatingController extends Controller
             $newRating->save();
             return back();
         } else {
-
+            // To Update rating
             Rating::where('User_id', auth()->user()->id)->update(
                 [
                     'Rating' => request('rating'),

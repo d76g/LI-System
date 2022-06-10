@@ -46,6 +46,7 @@ class CompanySupervisorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Add a new Company Supervisor
     public function store(Request $request)
     {
         request()->validate([

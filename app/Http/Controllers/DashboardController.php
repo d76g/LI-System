@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    // To display students list in the Student's Page
     public function index()
     {
         $students = Students::with('Supervisor')->skip(0)->take(PHP_INT_MAX)->orderBy('Nama')->Paginate(15);

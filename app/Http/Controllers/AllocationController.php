@@ -41,8 +41,11 @@ class AllocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // To Assigne students to supervisors
     public function store(Request $request)
     {
+        // To validate the input entered
         $request->validate(
             [
                 'svName' => 'required',
@@ -53,7 +56,7 @@ class AllocationController extends Controller
                 'ids.required' => 'Please Select a Student.'
             ]
         );
-
+        // To send an email to supervisor
         if ($request->input('assignAndNotify')) {
             foreach ($request->input('ids') as $student) {
                 $sv = Students::find($student);
@@ -102,6 +105,7 @@ class AllocationController extends Controller
      * @param  \App\Models\Allocation  $allocation
      * @return \Illuminate\Http\Response
      */
+    // To reassigne student / remove supervisor
     public function update(Request $request)
     {
         $request->validate([

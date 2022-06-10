@@ -154,61 +154,43 @@
                 <div id="contact" class="container p-6">
                   <div class="grid lg:grid-cols-4 md:grid-cols-2">
                     <div class="mb-6">
-                      <h5 class="uppercase font-bold mb-2.5 text-gray-800">Links</h5>
+                      <h5 class="uppercase font-bold mb-2.5 text-gray-800">Related Systems</h5>
               
                       <ul class="list-none mb-0">
                         <li>
-                          <a href="#!" class="text-gray-800">Link 1</a>
+                          <a href="#!" class="text-gray-800">SMAP</a>
                         </li>
                         <li>
-                          <a href="#!" class="text-gray-800">Link 2</a>
+                          <a href="#!" class="text-gray-800">Author</a>
                         </li>
                         <li>
-                          <a href="#!" class="text-gray-800">Link 3</a>
+                          <a href="#!" class="text-gray-800">LI</a>
                         </li>
                         <li>
-                          <a href="#!" class="text-gray-800">Link 4</a>
+                          <a href="#!" class="text-gray-800">UTHM Library</a>
                         </li>
                       </ul>
                     </div>
               
                     <div class="mb-6">
-                      <h5 class="uppercase font-bold mb-2.5 text-gray-800">Links</h5>
+                      <h5 class="uppercase font-bold mb-2.5 text-gray-800">FSKTM System</h5>
               
                       <ul class="list-none mb-0">
                         <li>
-                          <a href="#!" class="text-gray-800">Link 1</a>
+                          <a href="#!" class="text-gray-800">Home</a>
                         </li>
                         <li>
-                          <a href="#!" class="text-gray-800">Link 2</a>
+                          <a href="#!" class="text-gray-800">Cources</a>
                         </li>
                         <li>
-                          <a href="#!" class="text-gray-800">Link 3</a>
+                          <a href="#!" class="text-gray-800">News</a>
                         </li>
                         <li>
-                          <a href="#!" class="text-gray-800">Link 4</a>
+                          <a href="#!" class="text-gray-800">About FSKTM</a>
                         </li>
                       </ul>
                     </div>
               
-                    <div class="mb-6">
-                      <h5 class="uppercase font-bold mb-2.5 text-gray-800">Links</h5>
-              
-                      <ul class="list-none mb-0">
-                        <li>
-                          <a href="#!" class="text-gray-800">Link 1</a>
-                        </li>
-                        <li>
-                          <a href="#!" class="text-gray-800">Link 2</a>
-                        </li>
-                        <li>
-                          <a href="#!" class="text-gray-800">Link 3</a>
-                        </li>
-                        <li>
-                          <a href="#!" class="text-gray-800">Link 4</a>
-                        </li>
-                      </ul>
-                    </div>
               
                     <div>
                       <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">

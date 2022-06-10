@@ -42,7 +42,7 @@ class DocumentsController extends Controller
         $validated = $request->validate(
             [
                 'title' => 'required|max:150',
-                'content' => 'required|max:300',
+                'content' => 'required|max:500',
                 'document' => 'required|mimes:csv,txt,xlx,xls,pdf,pptx,doc|max:100000',
             ],
             [

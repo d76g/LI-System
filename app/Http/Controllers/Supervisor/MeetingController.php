@@ -45,6 +45,7 @@ class MeetingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Schedule a meeting with Company Supervisor
     public function store(Request $request)
     {
         request()->validate([
@@ -64,7 +65,7 @@ class MeetingController extends Controller
         $companySV = CompanySupervisor::with('Student')->where('Student_id', '=', request('student'))->value('id');
         $newMeeting->CompanySupervisor_id = $companySV;
         $newMeeting->save();
-
+        // Notify Company Supervisor with an Email
         $companySVemail = CompanySupervisor::with('Student')->where('Student_id', '=', request('student'))->get('email');
         Mail::to($companySVemail)->send(
             new MeetingEmail($newMeeting)

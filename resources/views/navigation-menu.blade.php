@@ -24,9 +24,6 @@
                     <x-jet-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Students') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{URL::to('supervisor') }}">
-                        {{ __('Supervisors') }}
-                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('company.index') }}" :active="request()->routeIs('company.record.index')">
                         {{ __('Manage Company') }}
                     </x-jet-nav-link>

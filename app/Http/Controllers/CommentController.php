@@ -46,12 +46,13 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Add New Comment
     public function store(Request $request)
     {
         request()->validate([
             'comment' => 'required|min:10|max:1000',
         ]);
-
+        // To check if a user doesn't have a comment
         if (!Comment::where('User_id', auth()->user()->id)->exists()) {
             $newComment = new comment();
             $newComment->User_id = auth()->user()->id;
