@@ -34,7 +34,8 @@ class CreateStudentsTable extends Migration
             $table->string('Tarikh_Mula_LI')->nullable();
             $table->string('Tarikh_Tamat_LI')->nullable();
             $table->string('Tarikh_Lapor_Diri')->nullable();
-            $table->foreignId('Supervisor_id')->nullable()->constrained('Users')->cascadeOnDelete();
+            $table->unsignedBigInteger('Supervisor_id')->nullable()->cascadeOnDelete();;
+            $table->foreign('Supervisor_id')->references('id')->on('Users');
             $table->string('Program');
             $table->text('Status')->nullable();
             $table->timestamps();
