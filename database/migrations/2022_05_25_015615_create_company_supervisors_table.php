@@ -19,7 +19,8 @@ class CreateCompanySupervisorsTable extends Migration
             $table->string('phone_number')->nullable();
             $table->string('email');
             $table->string('company');
-            $table->foreignId('Student_id')->constrained('users')->cascadeOnDelete();
+            $table->unsignedBigInteger('Student_id')->nullable()->cascadeOnDelete();
+            $table->foreign('Student_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
